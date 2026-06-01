@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport TP Unix - EZZAHHANY YASSINE</title>
+    <style>
+        /* --- DESIGN SYSTEM & FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #3b82f6;
+            --accent: #0d9488;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+            --text: #334155;
+            --keyword: #d97706;
+            --type: #2563eb;
+            --string: #059669;
+            --comment: #64748b;
+            --preprocessor: #7c3aed;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text);
+            background-color: #f1f5f9;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- PAGE DE GARDE (COVER PAGE) --- */
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 85vh;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 4rem 3rem;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-page::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--accent));
+        }
+
+        .university-header {
+            text-align: center;
+        }
+
+        .university-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.2rem;
+        }
+
+        .faculty-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--comment);
+        }
+
+        .report-main {
+            text-align: center;
+            margin: auto 0;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-light);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .report-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .report-subtitle {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--comment);
+            margin-bottom: 3rem;
+        }
+
+        .divider {
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .student-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+        }
+
+        .student-info h3 {
+            font-size: 1rem;
+            color: var(--comment);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .student-info p {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .class-info {
+            text-align: right;
+        }
+
+        .class-info p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        /* --- TABLE OF CONTENTS --- */
+        .toc-section {
+            background-color: var(--light);
+            border-left: 4px solid var(--primary-light);
+            padding: 2rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 4rem;
+        }
+
+        .toc-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-link {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .toc-link:hover {
+            color: var(--primary-light);
+        }
+
+        /* --- CONTENT FORMATTING --- */
+        section {
+            margin-bottom: 5rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: var(--primary-light);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* --- CODE HIGHLIGHTING --- */
+        pre {
+            background-color: #0f172a;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.2rem 0;
+            border: 1px solid #1e293b;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: #f8fafc;
+        }
+
+        .keyword { color: var(--keyword); font-weight: 600; }
+        .type { color: var(--type); font-weight: 600; }
+        .string { color: var(--string); }
+        .comment { color: var(--comment); font-style: italic; }
+        .preprocessor { color: var(--preprocessor); }
+
+        /* --- SVG STYLING --- */
+        .svg-container {
+            text-align: center;
+            margin: 2rem 0;
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .node-rect {
+            fill: #ffffff;
+            stroke: var(--primary-light);
+            stroke-width: 2;
+            rx: 6px;
+        }
+
+        .node-rect-root {
+            fill: #eff6ff;
+            stroke: var(--primary);
+            stroke-width: 3;
+            rx: 8px;
+        }
+
+        .node-text-id {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            fill: var(--dark);
+            text-anchor: middle;
+        }
+
+        .node-text-pid {
+            font-family: 'Fira Code', monospace;
+            font-size: 9px;
+            fill: var(--comment);
+            text-anchor: middle;
+        }
+
+        .tree-edge {
+            stroke: #cbd5e1;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* --- PAGE BREAK OPTIMIZATIONS FOR PDF --- */
+        @media print {
+            body {
+                background-color: #ffffff;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+
+            .cover-page {
+                border: none;
+                min-height: 95vh;
+                page-break-after: always;
+            }
+
+            section {
+                page-break-inside: avoid;
+                page-break-after: auto;
+                margin-bottom: 3rem;
+            }
+
+            pre {
+                page-break-inside: avoid;
+                background-color: #f8fafc;
+                border: 1px solid #cbd5e1;
+            }
+
+            code {
+                color: #0f172a;
+            }
+
+            .keyword { color: #78350f; }
+            .type { color: #1e3a8a; }
+            .string { color: #065f46; }
+            .comment { color: #475569; }
+            .preprocessor { color: #581c87; }
+
+            h2 {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ==================== COVER PAGE ==================== -->
+    <div class="cover-page">
+        <div class="university-header">
+            <h1 class="university-title">Université Hassan 1er</h1>
+            <h2 class="faculty-title">Faculté des Sciences et Techniques, Settat</h2>
+        </div>
+
+        <div class="report-main">
+            <span class="badge">Programmation Système Unix</span>
+            <h1 class="report-title">Rapport de Travaux Pratiques</h1>
+            <h2 class="report-subtitle">Gestion des Fichiers et Gestion des Processus</h2>
+            <div class="divider"></div>
+        </div>
+
+        <div class="student-details">
+            <div class="student-info">
+                <h3>Présenté par :</h3>
+                <p>EZZAHHANY YASSINE</p>
+            </div>
+            <div class="class-info">
+                <p>FIGI - Semestre 4 (S4)</p>
+                <p>Département Génie Informatique</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TABLE OF CONTENTS ==================== -->
+    <div class="toc-section">
+        <h3 class="toc-title">Table des Matières</h3>
+        <ul class="toc-list">
+            <li class="toc-item"><a class="toc-link" href="#introduction">1. Introduction Générale</a></li>
+            <li class="toc-item"><a class="toc-link" href="#exercice1">2. Exercice 1 : Exécution concourante (Père/Fils)</a></li>
+            <li class="toc-item"><a class="toc-link" href="#exercice2">3. Exercice 2 : Arborescence de 15 processus sous contraintes</a></li>
+            <li class="toc-item"><a class="toc-link" href="#exercice3">4. Exercice 3 : Manipulation bas niveau et lseek</a></li>
+            <li class="toc-item"><a class="toc-link" href="#exercice4">5. Exercice 4 : Exploration de dossiers (Equivalent ls -ai)</a></li>
+            <li class="toc-item"><a class="toc-link" href="#exercice5">6. Exercice 5 : Synchronisation et exécution de binaires (ls et ps)</a></li>
+            <li class="toc-item"><a class="toc-link" href="#exercice6">7. Exercice 6 : Traduction d'UID en clair (getpwuid & getgrgid)</a></li>
+            <li class="toc-item"><a class="toc-link" href="#conclusion">8. Conclusion Générale</a></li>
+        </ul>
+    </div>
+
+    <!-- ==================== INTRODUCTION ==================== -->
+    <section id="introduction">
+        <h2>1. Introduction Générale</h2>
+        <p>
+            Ce travail pratique a pour objectif d'aborder concrètement les piliers de la programmation système en environnement Unix. 
+            À travers des expérimentations pratiques en langage C, nous étudions d'une part la notion de <strong>processus</strong> 
+            (création concourante, cycles de vie, recouvrement de mémoire et synchronisation), et d'autre part la <strong>manipulation des fichiers</strong> 
+            au niveau système (appels système POSIX standards, positionnement de curseur physique, parcours de structures physiques de répertoires).
+        </p>
+        <p>
+            L'ensemble des fichiers sources a été rédigé de façon modulaire et propre dans le dossier cible <code>gestion_processus</code>, accompagné d'un <code>Makefile</code> pour automatiser le processus de compilation de manière portable.
+        </p>
+    </section>
+
+    <!-- ==================== EXERCICE 1 ==================== -->
+    <section id="exercice1">
+        <h2>2. Exercice 1 : Exécution concourante (Père/Fils)</h2>
+        <h3>Analyse & Objectifs</h3>
+        <p>
+            Le but de cet exercice est d'illustrer la concourance de processus. À l'aide de l'appel système <code>fork()</code>, un processus père se sépare en deux. 
+            Le processus fils doit afficher tous les entiers successifs de $1$ à $N$, tandis que le processus père doit filtrer et n'afficher que les entiers pairs sur cette même plage. 
+            Afin d'éviter l'état de zombie pour le fils, le père doit suspendre son exécution grâce à <code>wait()</code> jusqu'à la fin de la tâche de son enfant.
+        </p>
+
+        <h3>Code Source (<code>exercice1.c</code>)</h3>
+        <pre><code><span class="preprocessor">#include &lt;stdio.h&gt;</span>
+<span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+<span class="preprocessor">#include &lt;unistd.h&gt;</span>
+<span class="preprocessor">#include &lt;sys/types.h&gt;</span>
+<span class="preprocessor">#include &lt;sys/wait.h&gt;</span>
+
+<span class="type">int</span> main(<span class="type">int</span> argc, <span class="type">char</span> *argv[]) {
+    <span class="type">int</span> n = 10;
+    
+    <span class="keyword">if</span> (argc &gt; 1) {
+        n = atoi(argv[1]);
+        <span class="keyword">if</span> (n &lt;= 0) {
+            fprintf(stderr, <span class="string">"Erreur : N doit être strictement positif.\n"</span>);
+            <span class="keyword">return</span> 1;
+        }
+    }
+
+    printf(<span class="string">"[Début] PID principal: %d | N = %d\n"</span>, getpid(), n);
+
+    <span class="type">pid_t</span> pid = fork();
+
+    <span class="keyword">if</span> (pid &lt; 0) {
+        perror(<span class="string">"Erreur fork"</span>);
+        <span class="keyword">return</span> 1;
+    } 
+    <span class="keyword">else</span> <span class="keyword">if</span> (pid == 0) {
+        <span class="comment">// --- Code du Fils ---</span>
+        printf(<span class="string">"\n[Fils - PID: %d] Début de l'affichage de 1 à %d :\n"</span>, getpid(), n);
+        <span class="keyword">for</span> (<span class="type">int</span> i = 1; i &lt;= n; i++) {
+            printf(<span class="string">"  -&gt; [Fils - PID: %d] Nombre : %d\n"</span>, getpid(), i);
+            usleep(10000);
+        }
+        printf(<span class="string">"[Fils - PID: %d] *** Fin du processus fils ***\n\n"</span>, getpid());
+        exit(EXIT_SUCCESS);
+    } 
+    <span class="keyword">else</span> {
+        <span class="comment">// --- Code du Père ---</span>
+        printf(<span class="string">"\n[Père - PID: %d] Début de l'affichage des pairs de 1 à %d :\n"</span>, getpid(), n);
+        <span class="keyword">for</span> (<span class="type">int</span> i = 1; i &lt;= n; i++) {
+            <span class="keyword">if</span> (i % 2 == 0) {
+                printf(<span class="string">"  -&gt; [Père - PID: %d] Nombre Pair : %d\n"</span>, getpid(), i);
+                usleep(10000);
+            }
+        }
+        
+        <span class="comment">// Attente de la fin du fils</span>
+        <span class="type">int</span> status;
+        wait(&amp;status);
+        
+        printf(<span class="string">"[Père - PID: %d] *** Mon fils est terminé, fin du père ***\n"</span>, getpid());
+    }
+
+    <span class="keyword">return</span> 0;
+}</code></pre>
+    </section>
+
+    <!-- ==================== EXERCICE 2 ==================== -->
+    <section id="exercice2">
+        <h2>3. Exercice 2 : Arborescence de 15 processus sous contraintes</h2>
+        <h3>Analyse & Contraintes du Problème</h3>
+        <p>
+            Nous devons créer un arbre comptant <strong>exactement 15 processus</strong> respectant les contraintes :
+        </p>
+        <ul>
+            <li>Le processus de départ (racine) $P_0$ fait partie des 15.</li>
+            <li>Chaque nœud a soit $0$, soit $2$, soit $3$ enfants (interdiction formelle d'avoir un enfant unique).</li>
+            <li>Tous les enfants directs du processus initial ($P_0$) doivent obligatoirement engendrer eux-mêmes des enfants.</li>
+            <li>Le code source C doit être minimaliste et contenir le nombre le plus réduit possible d'instructions <code>fork()</code>.</li>
+        </ul>
+
+        <h3>Modélisation & Justification Théorique</h3>
+        <p>
+            Pour satisfaire ces règles complexes, nous concevons l'arbre par niveaux :
+        </p>
+        <ul>
+            <li><strong>Niveau 0 (Racine)</strong> : Le processus initial $P_0$. Pour respecter la règle 3, nous lui donnons **3 fils** ($P_1$, $P_2$, $P_3$).</li>
+            <li><strong>Niveau 1</strong> : Le groupe des 3 fils de $P_0$. Pour qu'ils aient tous des descendants (Règle 3), nous donnons **2 fils** à chacun d'eux.
+                <ul>
+                    <li>$P_1$ enfante $P_4$ et $P_5$.</li>
+                    <li>$P_2$ enfante $P_6$ et $P_7$.</li>
+                    <li>$P_3$ enfante $P_8$ et $P_9$.</li>
+                </ul>
+                Nous comptons ici : $1$ (racine) + $3$ (niveau 1) + $6$ (niveau 2) = $10$ processus. Il en reste $5$ à placer.
+            </li>
+            <li><strong>Niveau 2</strong> : Parmi ces 6 nœuds, nous devons faire naître exactement 5 enfants. Pour respecter la contrainte de degré (0, 2 ou 3 fils), nous donnons **2 fils** à $P_4$ ($P_{10}$, $P_{11}$) et **3 fils** à $P_5$ ($P_{12}$, $P_{13}$, $P_{14}$). Les autres processus ($P_6$ à $P_9$) n'ont pas de fils.</li>
+            <li><strong>Niveau 3</strong> : Les feuilles de l'arbre ($P_{10}$ à $P_{14}$) n'engendrent aucun fils.</li>
+        </ul>
+        <p>
+            <strong>Justification du compte total :</strong>
+            $$N = N_{\text{Niv0}} + N_{\text{Niv1}} + N_{\text{Niv2}} + N_{\text{Niv3}}$$
+            $$N = 1 + 3 + 6 + 5 = 15 \text{ processus.}$$
+            Le degré de chaque nœud est toujours égal à 0 (feuilles), 2 ($P_1, P_2, P_3, P_4$) ou 3 ($P_0, P_5$), validant la contrainte.
+        </p>
+
+        <h3>Représentation Graphique de l'Arborescence (SVG)</h3>
+        <div class="svg-container">
+            <svg width="800" height="420" viewBox="0 0 800 420">
+                <!-- Edges -->
+                <!-- Level 0 to 1 -->
+                <path d="M 400,45 L 200,125" class="tree-edge" />
+                <path d="M 400,45 L 400,125" class="tree-edge" />
+                <path d="M 400,45 L 600,125" class="tree-edge" />
+                <!-- Level 1 to 2 -->
+                <path d="M 200,125 L 120,215" class="tree-edge" />
+                <path d="M 200,125 L 280,215" class="tree-edge" />
+                
+                <path d="M 400,125 L 360,215" class="tree-edge" />
+                <path d="M 400,125 L 440,215" class="tree-edge" />
+                
+                <path d="M 600,125 L 540,215" class="tree-edge" />
+                <path d="M 600,125 L 660,215" class="tree-edge" />
+                <!-- Level 2 to 3 -->
+                <path d="M 120,215 L 80,315" class="tree-edge" />
+                <path d="M 120,215 L 160,315" class="tree-edge" />
+                
+                <path d="M 280,215 L 230,315" class="tree-edge" />
+                <path d="M 280,215 L 280,315" class="tree-edge" />
+                <path d="M 280,215 L 330,315" class="tree-edge" />
+
+                <!-- Nodes -->
+                <!-- Level 0 -->
+                <g>
+                    <rect x="360" y="15" width="80" height="45" class="node-rect-root" />
+                    <text x="400" y="35" class="node-text-id">P0 (Racine)</text>
+                    <text x="400" y="52" class="node-text-pid">Niveau 0</text>
+                </g>
+
+                <!-- Level 1 -->
+                <g>
+                    <rect x="160" y="105" width="80" height="40" class="node-rect" />
+                    <text x="200" y="125" class="node-text-id">P1</text>
+                    <text x="200" y="138" class="node-text-pid">Niveau 1</text>
+                </g>
+                <g>
+                    <rect x="360" y="105" width="80" height="40" class="node-rect" />
+                    <text x="400" y="125" class="node-text-id">P2</text>
+                    <text x="400" y="138" class="node-text-pid">Niveau 1</text>
+                </g>
+                <g>
+                    <rect x="560" y="105" width="80" height="40" class="node-rect" />
+                    <text x="600" y="125" class="node-text-id">P3</text>
+                    <text x="600" y="138" class="node-text-pid">Niveau 1</text>
+                </g>
+
+                <!-- Level 2 -->
+                <g>
+                    <rect x="80" y="195" width="80" height="40" class="node-rect" />
+                    <text x="120" y="215" class="node-text-id">P4</text>
+                    <text x="120" y="228" class="node-text-pid">Niveau 2</text>
+                </g>
+                <g>
+                    <rect x="240" y="195" width="80" height="40" class="node-rect" />
+                    <text x="280" y="215" class="node-text-id">P5</text>
+                    <text x="280" y="228" class="node-text-pid">Niveau 2</text>
+                </g>
+                <g>
+                    <rect x="320" y="195" width="80" height="40" class="node-rect" />
+                    <text x="360" y="215" class="node-text-id">P6</text>
+                    <text x="360" y="228" class="node-text-pid">Niveau 2 (Feuille)</text>
+                </g>
+                <g>
+                    <rect x="400" y="195" width="80" height="40" class="node-rect" />
+                    <text x="440" y="215" class="node-text-id">P7</text>
+                    <text x="440" y="228" class="node-text-pid">Niveau 2 (Feuille)</text>
+                </g>
+                <g>
+                    <rect x="500" y="195" width="80" height="40" class="node-rect" />
+                    <text x="540" y="215" class="node-text-id">P8</text>
+                    <text x="540" y="228" class="node-text-pid">Niveau 2 (Feuille)</text>
+                </g>
+                <g>
+                    <rect x="620" y="195" width="80" height="40" class="node-rect" />
+                    <text x="660" y="215" class="node-text-id">P9</text>
+                    <text x="660" y="228" class="node-text-pid">Niveau 2 (Feuille)</text>
+                </g>
+
+                <!-- Level 3 -->
+                <g>
+                    <rect x="40" y="295" width="80" height="40" class="node-rect" />
+                    <text x="80" y="315" class="node-text-id">P10</text>
+                    <text x="80" y="328" class="node-text-pid">Feuille</text>
+                </g>
+                <g>
+                    <rect x="120" y="295" width="80" height="40" class="node-rect" />
+                    <text x="160" y="315" class="node-text-id">P11</text>
+                    <text x="160" y="328" class="node-text-pid">Feuille</text>
+                </g>
+                <g>
+                    <rect x="190" y="295" width="80" height="40" class="node-rect" />
+                    <text x="230" y="315" class="node-text-id">P12</text>
+                    <text x="230" y="328" class="node-text-pid">Feuille</text>
+                </g>
+                <g>
+                    <rect x="240" y="295" width="80" height="40" class="node-rect" />
+                    <text x="280" y="315" class="node-text-id">P13</text>
+                    <text x="280" y="328" class="node-text-pid">Feuille</text>
+                </g>
+                <g>
+                    <rect x="290" y="295" width="80" height="40" class="node-rect" />
+                    <text x="330" y="315" class="node-text-id">P14</text>
+                    <text x="330" y="328" class="node-text-pid">Feuille</text>
+                </g>
+
+                <!-- Legends -->
+                <text x="400" y="385" font-family="'Outfit', sans-serif" font-size="13" font-weight="600" fill="#475569" text-anchor="middle">
+                    Arbre logique de 15 processus - Total de 14 forks gérés de manière itérative/récursive
+                </text>
+            </svg>
+        </div>
+
+        <h3>Code Source (<code>exercice2.c</code>)</h3>
+        <pre><code><span class="preprocessor">#include &lt;stdio.h&gt;</span>
+<span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+<span class="preprocessor">#include &lt;unistd.h&gt;</span>
+<span class="preprocessor">#include &lt;sys/types.h&gt;</span>
+<span class="preprocessor">#include &lt;sys/wait.h&gt;</span>
+
+<span class="type">void</span> executer_processus(<span class="type">int</span> id) {
+    <span class="type">int</span> nb_fils = 0;
+    <span class="type">int</span> ids_fils[3];
+
+    <span class="comment">// Configuration de l'arborescence</span>
+    <span class="keyword">if</span> (id == 0) {
+        nb_fils = 3;
+        ids_fils[0] = 1; ids_fils[1] = 2; ids_fils[2] = 3;
+    } <span class="keyword">else</span> <span class="keyword">if</span> (id == 1) {
+        nb_fils = 2;
+        ids_fils[0] = 4; ids_fils[1] = 5;
+    } <span class="keyword">else</span> <span class="keyword">if</span> (id == 2) {
+        nb_fils = 2;
+        ids_fils[0] = 6; ids_fils[1] = 7;
+    } <span class="keyword">else</span> <span class="keyword">if</span> (id == 3) {
+        nb_fils = 2;
+        ids_fils[0] = 8; ids_fils[1] = 9;
+    } <span class="keyword">else</span> <span class="keyword">if</span> (id == 4) {
+        nb_fils = 2;
+        ids_fils[0] = 10; ids_fils[1] = 11;
+    } <span class="keyword">else</span> <span class="keyword">if</span> (id == 5) {
+        nb_fils = 3;
+        ids_fils[0] = 12; ids_fils[1] = 13; ids_fils[2] = 14;
+    }
+
+    printf(<span class="string">"Processus ID-Logique: %2d | mon PID: %5d | mon Père: %5d | va créer %d fils\n"</span>,
+           id, getpid(), getppid(), nb_fils);
+
+    <span class="comment">// Une seule ligne fork() écrite textuellement</span>
+    <span class="keyword">for</span> (<span class="type">int</span> i = 0; i &lt; nb_fils; i++) {
+        <span class="type">pid_t</span> pid = fork();
+        
+        <span class="keyword">if</span> (pid &lt; 0) {
+            perror(<span class="string">"Erreur fork"</span>);
+            exit(EXIT_FAILURE);
+        } 
+        <span class="keyword">else</span> <span class="keyword">if</span> (pid == 0) {
+            executer_processus(ids_fils[i]);
+            exit(EXIT_SUCCESS); 
+        }
+    }
+
+    <span class="keyword">for</span> (<span class="type">int</span> i = 0; i &lt; nb_fils; i++) {
+        wait(NULL);
+    }
+
+    printf(<span class="string">"Processus ID-Logique: %2d | PID: %5d se termine proprement.\n"</span>, id, getpid());
+}
+
+<span class="type">int</span> main() {
+    printf(<span class="string">"=======================================================================\n"</span>);
+    printf(<span class="string">"  Génération de l'arborescence de 15 processus (Contraintes respectées) \n"</span>);
+    printf("<span class="string">=======================================================================\n"</span>);
+
+    executer_processus(0);
+
+    printf(<span class="string">"\n[Succès] Processus racine a attendu tous ses descendants. Fin.\n"</span>);
+    <span class="keyword">return</span> 0;
+}</code></pre>
+    </section>
+
+    <!-- ==================== EXERCICE 3 ==================== -->
+    <section id="exercice3">
+        <h2>4. Exercice 3 : Manipulation bas niveau et lseek</h2>
+        <h3>Analyse & Algorithme d'insertion</h3>
+        <p>
+            Nous devons écrire le texte initial <code>"le noyau réalise une préemption du processeur lorsqu'il dépasse son temps."</code> dans un fichier <code>testFile.txt</code>, 
+            puis y insérer le texte <code>"quantum de "</code> juste avant la portion <code>"son temps."</code>.
+        </p>
+        <p>
+            <strong>Problème</strong> : Si nous modifions directement le pointeur physique avec <code>lseek</code> à l'adresse de destination et écrivons de nouvelles données, l'ancienne portion située à cet endroit sera détruite (écrasée) octet par octet. 
+            Il est donc capital de :
+        </p>
+        <ul>
+            <li>Écrire la première phrase.</li>
+            <li>Lire le contenu du fichier, localiser la position absolue de la chaîne <code>"son temps"</code>.</li>
+            <li>Sauvegarder dans un buffer temporaire la suite restante (<code>"son temps."</code>).</li>
+            <li>Utiliser <code>lseek()</code> pour déplacer le curseur d'écriture à cette position absolue.</li>
+            <li>Écrire le morceau intercalaire <code>"quantum de "</code>.</li>
+            <li>Réécrire le suffixe de fin que l'on avait pris le soin de sauvegarder juste avant.</li>
+        </ul>
+
+        <h3>Code Source (<code>exercice3.c</code>)</h3>
+        <pre><code><span class="preprocessor">#include &lt;stdio.h&gt;</span>
+<span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+<span class="preprocessor">#include &lt;string.h&gt;</span>
+<span class="preprocessor">#include &lt;fcntl.h&gt;</span>
+<span class="preprocessor">#include &lt;unistd.h&gt;</span>
+
+<span class="type">int</span> main() {
+    <span class="type">const char</span> *filename = <span class="string">"testFile.txt"</span>;
+    <span class="type">const char</span> *initial_text = <span class="string">"le noyau réalise une préemption du processeur lorsqu'il dépasse son temps."</span>;
+    <span class="type">const char</span> *insert_text = <span class="string">"quantum de "</span>;
+    <span class="type">const char</span> *target = <span class="string">"son temps"</span>;
+
+    printf(<span class="string">"[1] Création et ouverture de %s...\n"</span>, filename);
+    <span class="type">int</span> fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
+    <span class="keyword">if</span> (fd &lt; 0) {
+        perror(<span class="string">"Erreur open"</span>);
+        <span class="keyword">return</span> 1;
+    }
+
+    <span class="comment">// Écriture du texte original</span>
+    write(fd, initial_text, strlen(initial_text));
+
+    <span class="comment">// Retour au début pour chercher l'emplacement cible</span>
+    lseek(fd, 0, SEEK_SET);
+    <span class="type">char</span> buffer[256];
+    memset(buffer, 0, sizeof(buffer));
+    read(fd, buffer, sizeof(buffer) - 1);
+
+    <span class="type">char</span> *pos = strstr(buffer, target);
+    <span class="keyword">if</span> (!pos) {
+        fprintf(stderr, <span class="string">"Erreur : sous-chaîne cible introuvable.\n"</span>);
+        close(fd);
+        <span class="keyword">return</span> 1;
+    }
+
+    <span class="type">off_t</span> offset = pos - buffer;
+    printf(<span class="string">"[2] Position cible identifiée à l'offset : %ld\n"</span>, (<span class="type">long</span>)offset);
+
+    <span class="comment">// Sauvegarde du reste de la phrase</span>
+    <span class="type">char</span> saved_suffix[128];
+    strcpy(saved_suffix, pos);
+
+    <span class="comment">// Positionnement à l'offset de destination et insertion</span>
+    lseek(fd, offset, SEEK_SET);
+    write(fd, insert_text, strlen(insert_text));
+    write(fd, saved_suffix, strlen(saved_suffix));
+
+    <span class="comment">// Lecture pour vérification</span>
+    lseek(fd, 0, SEEK_SET);
+    memset(buffer, 0, sizeof(buffer));
+    read(fd, buffer, sizeof(buffer) - 1);
+
+    printf(<span class="string">"\n[Résultat] Contenu final lu du fichier :\n\"%s\"\n"</span>, buffer);
+
+    close(fd);
+    <span class="keyword">return</span> 0;
+}</code></pre>
+    </section>
+
+    <!-- ==================== EXERCICE 4 ==================== -->
+    <section id="exercice4">
+        <h2>5. Exercice 4 : Exploration de dossiers (Equivalent ls -ai)</h2>
+        <h3>Analyse & Explications</h3>
+        <p>
+            La commande <code>ls -ai</code> sert à lister tous les éléments du dossier de travail :
+        </p>
+        <ul>
+            <li><code>-a</code> : extrait l'ensemble des fichiers, même cachés (tous ceux qui démarrent par un point <code>.</code>, comme <code>.</code> et <code>..</code>).</li>
+            <li><code>-i</code> : affiche pour chaque entrée le numéro d'identifiant unique physique nommé <strong>inode</strong>.</li>
+        </ul>
+        <p>
+            Pour reproduire cette commande de façon conforme en C, nous manipulons les primitives systèmes d'exploration de dossiers : 
+            <code>opendir()</code> pour cibler le dossier courant <code>"."</code>, puis une boucle avec <code>readdir()</code>. 
+            Cette dernière nous renvoie à chaque tour une variable contenant le nom (<code>d_name</code>) et le numéro d'inode (<code>d_ino</code>).
+        </p>
+
+        <h3>Code Source (<code>exercice4.c</code>)</h3>
+        <pre><code><span class="preprocessor">#include &lt;stdio.h&gt;</span>
+<span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+<span class="preprocessor">#include &lt;dirent.h&gt;</span>
+<span class="preprocessor">#include &lt;sys/types.h&gt;</span>
+
+<span class="type">int</span> main() {
+    DIR *dir = opendir(<span class="string">"."</span>);
+    <span class="keyword">if</span> (dir == NULL) {
+        perror(<span class="string">"Erreur opendir"</span>);
+        <span class="keyword">return</span> 1;
+    }
+
+    printf(<span class="string">"=======================================================================\n"</span>);
+    printf(<span class="string">"     Affichage du répertoire courant - Équivalent de 'ls -ai'          \n"</span>);
+    printf(<span class="string">"=======================================================================\n"</span>);
+
+    <span class="type">struct dirent</span> *entry;
+    <span class="type">int</span> count = 0;
+
+    <span class="keyword">while</span> ((entry = readdir(dir)) != NULL) {
+        printf(<span class="string">"%10lu %s\n"</span>, (<span class="type">unsigned long</span>)entry-&gt;d_ino, entry-&gt;d_name);
+        count++;
+    }
+
+    closedir(dir);
+    printf(<span class="string">"=======================================================================\n"</span>);
+    printf(<span class="string">"[Succès] Fin. Nombre d'éléments trouvés : %d\n"</span>, count);
+    <span class="keyword">return</span> 0;
+}</code></pre>
+    </section>
+
+    <!-- ==================== EXERCICE 5 ==================== -->
+    <section id="exercice5">
+        <h2>6. Exercice 5 : Synchronisation et exécution de binaires (ls et ps)</h2>
+        <h3>Analyse Technique</h3>
+        <p>
+            Cet exercice combine l'exécution concurrente de commandes systèmes réelles et la capture d'événements par le processus parent.
+            Le parent engendre deux processus enfants. Chaque fils recouvre son espace mémoire via la primitive <code>execlp()</code> pour lancer respectivement :
+        </p>
+        <ul>
+            <li>Le binaire <code>ls</code> avec l'argument <code>-l</code> pour le premier fils.</li>
+            <li>Le binaire <code>ps</code> avec l'argument <code>-l</code> pour le second fils.</li>
+        </ul>
+        <p>
+            Le père se bloque sur l'appel système <code>wait()</code>. Le premier processus fils qui finit d'exécuter sa commande réveille le père en lui transmettant son PID. 
+            Le père compare alors ce PID avec ceux mémorisés pour déterminer le vainqueur. 
+            Il exécute ensuite un second appel à <code>wait()</code> pour clore proprement l'exécution globale.
+        </p>
+
+        <h3>Code Source (<code>exercice5.c</code>)</h3>
+        <pre><code><span class="preprocessor">#include &lt;stdio.h&gt;</span>
+<span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+<span class="preprocessor">#include &lt;unistd.h&gt;</span>
+<span class="preprocessor">#include &lt;sys/types.h&gt;</span>
+<span class="preprocessor">#include &lt;sys/wait.h&gt;</span>
+
+<span class="type">int</span> main() {
+    <span class="type">pid_t</span> pid_ls, pid_ps;
+
+    printf(<span class="string">"[Père - PID: %d] Initialisation des deux tâches...\n\n"</span>, getpid());
+
+    // 1. Création fils LS
+    pid_ls = fork();
+    <span class="keyword">if</span> (pid_ls &lt; 0) {
+        perror(<span class="string">"Erreur fork ls"</span>);
+        <span class="keyword">return</span> 1;
+    } 
+    <span class="keyword">else</span> <span class="keyword">if</span> (pid_ls == 0) {
+        printf(<span class="string">"[Fils LS - PID: %d] Exécution de 'ls -l'...\n"</span>, getpid());
+        execlp(<span class="string">"ls"</span>, <span class="string">"ls"</span>, <span class="string">"-l"</span>, NULL);
+        perror(<span class="string">"Erreur exec ls"</span>);
+        exit(EXIT_FAILURE);
+    }
+
+    // 2. Création fils PS
+    pid_ps = fork();
+    <span class="keyword">if</span> (pid_ps &lt; 0) {
+        perror(<span class="string">"Erreur fork ps"</span>);
+        <span class="keyword">return</span> 1;
+    } 
+    <span class="keyword">else</span> <span class="keyword">if</span> (pid_ps == 0) {
+        printf(<span class="string">"[Fils PS - PID: %d] Exécution de 'ps -l'...\n"</span>, getpid());
+        execlp(<span class="string">"ps"</span>, <span class="string">"ps"</span>, <span class="string">"-l"</span>, NULL);
+        perror(<span class="string">"Erreur exec ps"</span>);
+        exit(EXIT_FAILURE);
+    }
+
+    // 3. Attente et détection du premier fils terminé
+    <span class="type">int</span> status;
+    <span class="type">pid_t</span> premier_termine = wait(&amp;status);
+
+    printf(<span class="string">"\n=======================================================================\n"</span>);
+    <span class="keyword">if</span> (premier_termine == pid_ls) {
+        printf(<span class="string">"[Résultat] Le PREMIER à finir est : Fils 1 ('ls -l') [PID: %d]\n"</span>, premier_termine);
+    } 
+    <span class="keyword">else</span> <span class="keyword">if</span> (premier_termine == pid_ps) {
+        printf(<span class="string">"[Résultat] Le PREMIER à finir est : Fils 2 ('ps -l') [PID: %d]\n"</span>, premier_termine);
+    } 
+    <span class="keyword">else</span> {
+        printf(<span class="string">"[Résultat] Processus inconnu [PID: %d]\n"</span>, premier_termine);
+    }
+    printf(<span class="string">"=======================================================================\n"</span>);
+
+    // Attente du second processus
+    wait(&amp;status);
+    printf(<span class="string">"[Père] Le second fils s'est terminé. Fin propre.\n"</span>);
+
+    <span class="keyword">return</span> 0;
+}</code></pre>
+
+        <h3>Analyse du résultat temporel</h3>
+        <p>
+            Le travail demandé à la commande <code>ls</code> requiert une simple lecture locale sur le système de fichiers, ce qui est extrêmement optimisé et instantané. 
+            À l'inverse, <code>ps</code> interroge le cœur de l'OS en mémoire virtuelle (/proc sous Linux) pour récupérer la liste des processus systèmes en cours, tâche intrinsèquement plus coûteuse. 
+            Par conséquent, <strong>la commande <code>ls -l</code> se termine presque systématiquement en premier</strong>.
+        </p>
+    </section>
+
+    <!-- ==================== EXERCICE 6 ==================== -->
+    <section id="exercice6">
+        <h2>7. Exercice 6 : Traduction d'UID en clair (getpwuid & getgrgid)</h2>
+        <h3>Analyse & Structures Système</h3>
+        <p>
+            Les comptes d'utilisateurs Unix sont associés à des identifiants chiffrés (les UID). Pour les convertir en texte humain lisible :
+        </p>
+        <ul>
+            <li>La fonction <code>getpwuid(uid)</code> va chercher dans la table des comptes système (le fichier <code>/etc/passwd</code>) et renvoie un pointeur vers une structure <code>passwd</code> (dont le champ <code>pw_name</code> contient le nom).</li>
+            <li>Le champ <code>pw_gid</code> de cette même structure fournit l'identifiant numérique de son groupe de travail principal. En passant ce dernier à <code>getgrgid(gid)</code>, on obtient une structure de type <code>group</code> contenant le nom du groupe (<code>gr_name</code>).</li>
+            <li>Si l'UID n'existe pas dans le système, la fonction renvoie un pointeur nul (<code>NULL</code>), nous permettant de renvoyer le message d'erreur prescrit par l'énoncé.</li>
+        </ul>
+
+        <h3>Code Source (<code>exercice6.c</code>)</h3>
+        <pre><code><span class="preprocessor">#include &lt;stdio.h&gt;</span>
+<span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+<span class="preprocessor">#include &lt;sys/types.h&gt;</span>
+<span class="preprocessor">#include &lt;pwd.h&gt;</span>
+<span class="preprocessor">#include &lt;grp.h&gt;</span>
+
+<span class="type">int</span> main(<span class="type">int</span> argc, <span class="type">char</span> *argv[]) {
+    <span class="keyword">if</span> (argc &lt; 2) {
+        printf(<span class="string">"[Usage] %s <UID>\n"</span>, argv[0]);
+        <span class="keyword">return</span> 1;
+    }
+
+    <span class="type">int</span> uid_int = atoi(argv[1]);
+    <span class="type">uid_t</span> uid = (<span class="type">uid_t</span>)uid_int;
+
+    // Récupération de l'utilisateur
+    <span class="type">struct passwd</span> *pw = getpwuid(uid);
+
+    <span class="keyword">if</span> (pw == NULL) {
+        // Message d'erreur obligatoire
+        printf(<span class="string">"il n'y a pas d'utilisateur associé à cet uid.\n"</span>);
+        <span class="keyword">return</span> 0;
+    }
+
+    printf(<span class="string">"=======================================================================\n"</span>);
+    printf(<span class="string">"     Informations d'identité pour l'UID %d (Trouvé !)                  \n"</span>);
+    printf("<span class="string">=======================================================================\n"</span>);
+    printf(<span class="string">"- Nom d'utilisateur (Login)    : %s\n"</span>, pw-&gt;pw_name);
+    printf(<span class="string">"- Répertoire personnel (Home)  : %s\n"</span>, pw-&gt;pw_dir);
+    printf(<span class="string">"- Shell de connexion           : %s\n"</span>, pw-&gt;pw_shell);
+
+    // Récupération du nom du groupe en clair
+    <span class="type">struct group</span> *gr = getgrgid(pw-&gt;pw_gid);
+    <span class="keyword">if</span> (gr != NULL) {
+        printf(<span class="string">"- Groupe principal             : %s (GID: %d)\n"</span>, gr-&gt;gr_name, pw-&gt;pw_gid);
+    } <span class="keyword">else</span> {
+        printf(<span class="string">"- Groupe principal             : inconnu (GID: %d)\n"</span>, pw-&gt;pw_gid);
+    }
+    printf(<span class="string">"=======================================================================\n"</span>);
+
+    <span class="keyword">return</span> 0;
+}</code></pre>
+    </section>
+
+    <!-- ==================== CONCLUSION ==================== -->
+    <section id="conclusion">
+        <h2>8. Conclusion Générale</h2>
+        <p>
+            Ce travail pratique a permis d'aborder en profondeur les mécanismes fondamentaux des systèmes d'exploitation de type Unix. 
+            La manipulation fine des processus, des appels système d'écriture bas niveau, et l'interaction avec le système de fichiers constituent le socle technique indispensable à la formation d'un ingénieur en informatique de la filière <strong>FIGI (S4)</strong>.
+        </p>
+        <p>
+            Les développements réalisés et testés illustrent l'importance capitale d'une gestion rigoureuse de la mémoire et de l'ordonnancement, à la fois pour la sécurité et la stabilité des systèmes d'exploitation modernes.
+        </p>
+    </section>
+
+</div>
+
+</body>
+</html>
