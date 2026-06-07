@@ -1,5 +1,5 @@
-# Rapport de TP : Programmation Système Unix
-### Gestion des fichiers & Gestion des processus
+# Rapport de TP : Programmation Système et Réseau
+### Gestion des Processus
 
 ---
 
@@ -12,7 +12,7 @@
 
 ## 📖 Introduction générale
 
-Ce TP s'inscrit dans le cadre du module **Programmation Système Unix**. L'objectif principal est de comprendre et d'expérimenter les concepts clés qui régissent le fonctionnement d'un système Unix :
+Ce TP s'inscrit dans le cadre du module **Programmation Système et Réseau**. L'objectif principal est de comprendre et d'expérimenter les concepts clés qui régissent le fonctionnement d'un système Unix :
 1. **La gestion des processus** : avec la création de processus par duplication (`fork()`), le remplacement de l'espace mémoire par de nouveaux exécutables (`exec()`), et la synchronisation père-fils (`wait()`, `waitpid()`).
 2. **La gestion bas niveau des fichiers** : à travers les appels système POSIX standards (`open()`, `read()`, `write()`, `lseek()`, `close()`), ainsi que le parcours et la lecture des structures de répertoires système (`opendir()`, `readdir()`, `closedir()`).
 3. **La gestion de l'identité et de la sécurité** : en interrogeant la base des utilisateurs du système à l'aide d'UID (User Identifier) et de structures système standards (`getpwuid()`, `getgrgid()`).
@@ -575,7 +575,7 @@ int main(int argc, char *argv[]) {
 
 ## 📈 Conclusion
 
-Ce TP de programmation système Unix a permis de mettre en pratique et de consolider les connaissances fondamentales d'un futur ingénieur en informatique (FIGI) :
+Ce TP de programmation système et réseau a permis de mettre en pratique et de consolider les connaissances fondamentales d'un futur ingénieur en informatique (FIGI) :
 - Nous avons maîtrisé les cycles de vie des processus (création par `fork()`, exécution de commandes systèmes via la famille `exec`, synchronisation propre par le biais de `wait()`), évitant ainsi les écueils classiques des processus zombies ou orphelins.
 - Nous avons manipulé des descripteurs de fichiers à l'aide des primitives POSIX de bas niveau, nous sensibilisant aux problématiques de positionnement de pointeurs de fichiers (`lseek`) et d'accès concurrent ou séquentiel.
 - Enfin, nous avons appréhendé le fonctionnement interne de la sécurité et de la structure d'annuaire du système Unix en manipulant les structures d'identité des utilisateurs et des répertoires.

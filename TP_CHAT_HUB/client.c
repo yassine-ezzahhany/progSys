@@ -17,7 +17,8 @@ int main(int argc, char *argv[])
 {
 
   if(argc < 3) {
-    fprintf(stderr,"Usage <%s> <server_hostname> <server_port>",argv[0]);
+    fprintf(stderr, "Usage: %s <server_hostname> <server_port>\n", argv[0]);
+    exit(EXIT_FAILURE);
   }
   
   //VARIABLES DECLARATIONS 
@@ -31,7 +32,7 @@ int main(int argc, char *argv[])
   //CREATING THE socket
   socket_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
   
-  if (socket_fd == 0) {
+  if (socket_fd < 0) {
     error("socket creation failed");
   }
   //check if the host exist

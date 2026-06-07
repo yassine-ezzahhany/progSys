@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport TP4 - EZZAHHANY YASSINE</title>
+    <style>
+        /* --- ACADEMIC WORD-TO-PDF STYLING --- */
+        @page {
+            size: A4;
+            margin: 2.5cm 2cm 2.5cm 2.5cm;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            color: #000000;
+            font-family: "Calibri", "Arial", "Segoe UI", sans-serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 20px auto;
+            padding: 2.5cm 2cm 2.5cm 2.5cm;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        /* --- COVER PAGE --- */
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 190mm;
+            box-sizing: border-box;
+            padding: 1cm 0;
+            margin-bottom: 2cm;
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+
+        .university-header {
+            text-align: center;
+            margin-bottom: 3cm;
+        }
+
+        .university-title {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #1f4e78;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .faculty-title {
+            font-size: 12pt;
+            font-weight: normal;
+            color: #595959;
+        }
+
+        .report-main {
+            text-align: center;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 14pt;
+            font-weight: bold;
+            color: #2f5597;
+            margin-bottom: 1.5cm;
+            text-transform: uppercase;
+            border-bottom: 2px solid #2f5597;
+            padding-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .report-title {
+            font-size: 24pt;
+            font-weight: bold;
+            color: #1f4e78;
+            line-height: 1.25;
+            margin-bottom: 0.5cm;
+        }
+
+        .report-subtitle {
+            font-size: 15pt;
+            font-weight: normal;
+            color: #595959;
+            margin-bottom: 2cm;
+        }
+
+        .student-details-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-top: 1.5pt solid #2f5597;
+            margin-top: 3cm;
+        }
+
+        /* --- TABLE OF CONTENTS --- */
+        .toc-section {
+            border: 1px solid #d3d3d3;
+            padding: 1.5cm;
+            margin-bottom: 2cm;
+            background-color: #fafafa;
+            page-break-after: always;
+        }
+
+        .toc-title {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #1f4e78;
+            border-bottom: 1px solid #2f5597;
+            padding-bottom: 5px;
+            margin-bottom: 1cm;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc-item {
+            margin-bottom: 0.6rem;
+            font-size: 11pt;
+        }
+
+        .toc-link {
+            text-decoration: none;
+            color: #000000;
+            font-weight: normal;
+        }
+
+        .toc-link:hover {
+            text-decoration: underline;
+            color: #2f5597;
+        }
+
+        /* --- CONTENT FORMATTING --- */
+        section {
+            margin-bottom: 2.5cm;
+        }
+
+        h2 {
+            font-size: 18pt;
+            color: #1f4e78;
+            margin-top: 1.5cm;
+            margin-bottom: 0.5cm;
+            padding-bottom: 3px;
+            border-bottom: 1px solid #2f5597;
+            page-break-before: always;
+        }
+
+        h3 {
+            font-size: 13pt;
+            color: #2f5597;
+            margin-top: 0.8cm;
+            margin-bottom: 0.3cm;
+            font-weight: bold;
+        }
+
+        p {
+            margin-bottom: 0.4cm;
+            text-align: justify;
+            font-size: 11pt;
+            color: #111111;
+        }
+
+        ul {
+            margin-left: 1.5cm;
+            margin-bottom: 0.4cm;
+        }
+
+        li {
+            margin-bottom: 0.2cm;
+            font-size: 11pt;
+        }
+
+        blockquote {
+            background-color: #f8fafc;
+            border-left: 4px solid #e2e8f0;
+            padding: 0.4cm 0.6cm;
+            margin: 0.5cm 0;
+            font-style: italic;
+        }
+
+        /* --- CODE FORMATTING --- */
+        pre {
+            background-color: #f8f9fa;
+            border: 1px solid #d3d3d3;
+            border-left: 3.5px solid #2f5597;
+            padding: 0.8cm 1cm;
+            margin: 0.6cm 0;
+            overflow-x: auto;
+            page-break-inside: avoid;
+            border-radius: 4px;
+        }
+
+        code {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 9.5pt;
+            color: #000000;
+        }
+
+        /* Inline code styling */
+        code:not(pre code) {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 9.5pt;
+            background-color: #f2f2f2;
+            color: #2d3748;
+            padding: 2px 5px;
+            border-radius: 3px;
+            border: 1px solid #e1e1e1;
+        }
+
+        /* Code syntax highlighting */
+        .keyword { color: #0056b3; font-weight: bold; }
+        .type { color: #8a3c00; font-weight: bold; }
+        .string { color: #1e7e34; }
+        .comment { color: #6c757d; font-style: italic; }
+        .preprocessor { color: #6f42c1; }
+
+        /* --- SVG STYLING --- */
+        .svg-container {
+            text-align: center;
+            margin: 1.5cm 0;
+            background: #ffffff;
+            padding: 1cm;
+            border: 1px solid #d3d3d3;
+            border-radius: 4px;
+            page-break-inside: avoid;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .node-rect {
+            fill: #fdfdfd;
+            stroke: #2f5597;
+            stroke-width: 1.5;
+            rx: 6px;
+        }
+
+        .node-rect-root {
+            fill: #f2f5fa;
+            stroke: #1f4e78;
+            stroke-width: 2.5;
+            rx: 6px;
+        }
+
+        .node-text-title {
+            font-family: "Calibri", "Arial", sans-serif;
+            font-weight: bold;
+            font-size: 13px;
+            fill: #1f4e78;
+            text-anchor: middle;
+        }
+
+        .node-text-detail {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 10px;
+            fill: #333333;
+        }
+
+        .pipe-line {
+            stroke: #2f5597;
+            stroke-width: 2;
+            stroke-dasharray: 5 3;
+            fill: none;
+        }
+
+        .pipe-arrow {
+            fill: #1f4e78;
+        }
+
+        .pipe-box {
+            fill: #f8fafc;
+            stroke: #cbd5e1;
+            stroke-width: 1;
+            rx: 4px;
+        }
+
+        /* --- PAGE BREAK OPTIMIZATIONS FOR PRINT/PDF --- */
+        @media print {
+            body {
+                background-color: #ffffff;
+                color: #000000;
+                font-size: 11pt;
+            }
+
+            .container {
+                width: auto;
+                min-height: auto;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .cover-page {
+                height: auto;
+                min-height: 190mm;
+                page-break-after: always;
+                page-break-inside: avoid;
+            }
+
+            h2 {
+                page-break-before: always;
+            }
+
+            pre {
+                page-break-inside: avoid;
+                background-color: #f8f9fa !important;
+                border: 1px solid #cbd5e1 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ==================== COVER PAGE ==================== -->
+    <div class="cover-page">
+        <div class="university-header">
+            <p class="university-title">Université Hassan 1er</p>
+            <p class="faculty-title">Faculté des Sciences et Techniques, Settat</p>
+        </div>
+
+        <div class="report-main">
+            <span class="badge">Programmation Système et Réseau</span>
+            <p class="report-title">Rapport de Travaux Pratiques 4</p>
+            <p class="report-subtitle">Sockets TCP et Client-Serveur de Chat Multi-threadé (Chat Hub)</p>
+        </div>
+
+        <table class="student-details-table">
+            <tr>
+                <td style="width:50%; padding-top:0.5cm; vertical-align:top; text-align:left;">
+                    <span style="font-size:10pt; color:#595959; text-transform:uppercase; font-weight:bold; display:block; margin-bottom:5px;">Présenté par :</span>
+                    <span style="font-size:12pt; font-weight:bold; color:#000000; display:block;">EZZAHHANY YASSINE</span>
+                </td>
+                <td style="width:50%; padding-top:0.5cm; vertical-align:top; text-align:right;">
+                    <span style="font-size:11pt; font-weight:bold; color:#2f5597; display:block;">FIGI - Semestre 4 (S4)</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ==================== TABLE OF CONTENTS ==================== -->
+    <div class="toc-section">
+        <h3 class="toc-title">Table des Matières</h3>
+        <ul class="toc-list">
+            <li class="toc-item"><a class="toc-link" href="#introduction">1. Introduction Générale</a></li>
+            <li class="toc-item"><a class="toc-link" href="#partie1">2. Partie 1 : Messagerie TCP Bloquante (Synchrone)</a></li>
+            <li class="toc-item"><a class="toc-link" href="#partie2">3. Partie 2 : Messagerie TCP Asynchrone / Multi-threadée</a></li>
+            <li class="toc-item"><a class="toc-link" href="#conclusion">4. Conclusion Générale</a></li>
+        </ul>
+    </div>
+
+    <!-- ==================== INTRODUCTION ==================== -->
+    <section id="introduction">
+        <h2>1. Introduction Générale</h2>
+        <p>
+            Ce travail pratique s'inscrit dans le cadre du module <strong>Programmation Système et Réseau</strong>. Après avoir étudié la communication inter-processus locale via les tubes (Pipes) et la capture des signaux système, ce travail pratique aborde la communication à travers le réseau à l'aide des <strong>Sockets BSD</strong> sous Unix.
+        </p>
+        <p>
+            L'objectif de ce TP est de concevoir et de comparer deux modèles d'applications de messagerie instantanée (Chat) de type client-serveur basées sur le protocole <strong>TCP</strong> (<code>SOCK_STREAM</code>) :
+        </p>
+        <ul>
+            <li><strong>Un modèle bloquant synchrone (<code>client.c</code> et <code>server.c</code>)</strong> : où le client et le serveur alternent les rôles de lecteur et d'écrivain de façon séquentielle. Nous analyserons les limites intrinsèques de ce modèle face aux exigences de l'interactivité en temps réel.</li>
+            <li><strong>Un modèle asynchrone multi-threadé (<code>client_nb.c</code> et <code>server_nb.c</code>)</strong> : qui résout le blocage de l'interface en séparant la lecture réseau et la saisie utilisateur dans des threads POSIX (<code>pthread</code>) distincts, tout en gérant l'affichage de la console en mode terminal brut (<code>termios</code>) et la synchronisation avec des verrous d'exclusion mutuelle (<code>mutex</code>).</li>
+        </ul>
+        <p>
+            Ce rapport présente l'analyse détaillée des concepts théoriques, l'explication des structures de code C, la mise en évidence des limitations fonctionnelles et la justification de la solution asynchrone multi-threadée.
+        </p>
+    </section>
+
+    <!-- ==================== PARTIE 1 ==================== -->
+    <section id="partie1">
+        <h2>2. Partie 1 : Messagerie TCP Bloquante (Synchrone)</h2>
+        <h3>Concept de la Communication par Socket TCP</h3>
+        <p>
+            Le protocole <strong>TCP</strong> (Transmission Control Protocol) est un protocole orienté connexion, fiable et bidirectionnel (Full-Duplex). La mise en relation d'un client et d'un serveur TCP repose sur une machine à états stricte utilisant des appels système POSIX :
+        </p>
+        <ul>
+            <li><strong>Côté Serveur</strong> :
+                <ul>
+                    <li><code>socket()</code> : Allocation du descripteur de socket réseau.</li>
+                    <li><code>bind()</code> : Association de la socket à un couple (Adresse IP, Port).</li>
+                    <li><code>listen()</code> : Configuration de la file d'attente pour accueillir les demandes de connexion entrantes.</li>
+                    <li><code>accept()</code> : Appel bloquant qui attend la connexion d'un client et retourne un nouveau descripteur de fichier spécifique à cette session.</li>
+                </ul>
+            </li>
+            <li><strong>Côté Client</strong> :
+                <ul>
+                    <li><code>socket()</code> : Création de la socket cliente.</li>
+                    <li><code>connect()</code> : Lancement de la poignée de main TCP (3-way handshake) vers le serveur spécifié par son adresse IP et son port.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Fonctionnement du Programme Synchrone (<code>client.c</code> et <code>server.c</code>)</h3>
+        <p>
+            Dans cette première version, le client et le serveur s'échangent des messages textuels en mode "ping-pong". L'interaction est régie par la structure classique suivante :
+        </p>
+
+        <h3>Le Serveur (<code>server.c</code>)</h3>
+        <p>
+            Le serveur écoute sur une adresse IP et un port fournis en ligne de commande. Une fois la connexion acceptée, il appelle la fonction <code>shats()</code> qui gère l'échange de messages de façon séquentielle :
+        </p>
+        <pre><code><span class="type">void</span> shats(<span class="type">int</span> fd)
+{
+  <span class="type">char</span> buffer[256];
+  <span class="type">int</span> n;
+
+  <span class="keyword">while</span> (1)
+  {
+    bzero(buffer, 256);
+    n = read(fd, buffer, 255); <span class="comment">// Appel bloquant : attente du message du client</span>
+    <span class="keyword">if</span> (n &lt; 0) {
+      error(<span class="string">"ERROR reading from socket"</span>);
+    }
+    <span class="keyword">else</span> <span class="keyword">if</span> (n == 0) {
+      printf(<span class="string">"Client has exited. shutting down...\n"</span>);
+      <span class="keyword">break</span>;
+    }
+    printf(<span class="string">"Client : %s"</span>, buffer);
+    bzero(buffer, 256);
+    printf(<span class="string">"Server : "</span>);
+
+    <span class="keyword">if</span> (fgets(buffer, 255, stdin) == NULL) {
+      printf(<span class="string">"exiting...\n"</span>);
+      <span class="keyword">break</span>;
+    }
+
+    <span class="keyword">if</span> (strncmp(buffer, <span class="string">"exit"</span>, 4) == 0) {
+      printf(<span class="string">"exiting...\n"</span>);
+      <span class="keyword">break</span>;
+    }
+    n = write(fd, buffer, strlen(buffer)); <span class="comment">// Envoi au client</span>
+    <span class="keyword">if</span> (n &lt; 0)
+      error(<span class="string">"ERROR writing to socket"</span>);
+  }
+  printf(<span class="string">"bye\n"</span>);
+}</code></pre>
+
+        <h3>Le Client (<code>client.c</code>)</h3>
+        <p>
+            Le client se connecte au serveur et exécute une boucle complémentaire qui force également l'alternance d'écriture clavier puis d'attente réseau :
+        </p>
+        <pre><code>  <span class="keyword">while</span> (1) {
+    <span class="comment">//reading from the stdin</span>
+    printf(<span class="string">"client : "</span>);
+    bzero(buffer, 256);
+    fgets(buffer, 255, stdin); <span class="comment">// Appel bloquant : attente de la saisie clavier</span>
+
+    <span class="keyword">if</span> (strncmp(buffer, <span class="string">"exit"</span>, 4) == 0) {
+      printf(<span class="string">"exiting...\n"</span>);
+      <span class="keyword">break</span>;
+    }
+    n = write(socket_fd, buffer, strlen(buffer)); <span class="comment">// Envoi au serveur</span>
+    <span class="keyword">if</span> (n &lt; 0) 
+      error(<span class="string">"ERROR writing to socket"</span>);
+    bzero(buffer, 256);
+    n = read(socket_fd, buffer, 255); <span class="comment">// Appel bloquant : attente de la réponse réseau</span>
+    <span class="keyword">if</span> (n &lt; 0) {
+      error(<span class="string">"ERROR reading from socket"</span>);
+    }
+    <span class="keyword">else</span> <span class="keyword">if</span> (n == 0) {
+      printf(<span class="string">"Server has closed the connection. exiting...\n"</span>);
+      <span class="keyword">break</span>;
+    }
+    printf(<span class="string">"server : %s"</span>, buffer);
+  }</code></pre>
+
+        <h3>Limites du Modèle Bloquant Synchrone</h3>
+        <p>
+            Bien que ce code fonctionne pour un échange simple alterné, il souffre de limitations critiques dues au <strong>blocage des appels système d'E/S (Entrées/Sorties)</strong> :
+        </p>
+        <ul>
+            <li><strong>Le Syndrome du Ping-Pong Imposé</strong> : L'utilisation de <code>fgets()</code> (lecture clavier) et de <code>read()</code> (lecture réseau) s'effectue sur le même thread unique. Si le serveur attend que l'utilisateur saisisse son texte sur <code>stdin</code> (bloqué dans <code>fgets</code>), il est <strong>totalement sourd</strong> aux messages envoyés par le client via le réseau. Le client peut envoyer plusieurs lignes, elles resteront en attente dans la file réseau et ne s'afficheront que lorsque l'opérateur du serveur aura appuyé sur <code>Entrée</code>.</li>
+            <li><strong>Impossibilité d'Émettre en Continu</strong> : Un utilisateur ne peut pas envoyer deux messages d'affilée sans attendre une réponse, car le code repasse immédiatement dans un appel <code>read()</code> bloquant après chaque <code>write()</code>.</li>
+            <li><strong>Monoclientèle</strong> : Le serveur ne peut gérer qu'un seul client à la fois. Si un deuxième client tente de se connecter, sa demande est mise en attente au niveau de la file d'écoute TCP (<code>backlog</code> de <code>listen</code>) et il ne sera traité que lorsque le premier client aura fermé sa connexion.</li>
+        </ul>
+
+        <div class="svg-container">
+            <svg width="800" height="300" viewBox="0 0 800 300">
+                <!-- Server Column -->
+                <rect x="50" y="20" width="240" height="260" class="node-rect-root" />
+                <text x="170" y="45" class="node-text-title">SERVEUR (Synchrone / Bloquant)</text>
+                
+                <rect x="70" y="80" width="200" height="35" class="pipe-box" />
+                <text x="170" y="102" font-family="Consolas" font-size="10" fill="#dc2626" font-weight="bold" text-anchor="middle">1. read(socket_fd) [BLOQUÉ]</text>
+                
+                <rect x="70" y="190" width="200" height="35" class="pipe-box" />
+                <text x="170" y="212" font-family="Consolas" font-size="10" fill="#ca8a04" font-weight="bold" text-anchor="middle">3. fgets(stdin) [BLOQUÉ]</text>
+
+                <!-- Client Column -->
+                <rect x="510" y="20" width="240" height="260" class="node-rect" />
+                <text x="630" y="45" class="node-text-title">CLIENT (Synchrone / Bloquant)</text>
+                
+                <rect x="530" y="80" width="200" height="35" class="pipe-box" />
+                <text x="630" y="102" font-family="Consolas" font-size="10" fill="#ca8a04" font-weight="bold" text-anchor="middle">2. fgets(stdin) [BLOQUÉ]</text>
+                
+                <rect x="530" y="190" width="200" height="35" class="pipe-box" />
+                <text x="630" y="212" font-family="Consolas" font-size="10" fill="#dc2626" font-weight="bold" text-anchor="middle">4. read(socket_fd) [BLOQUÉ]</text>
+
+                <!-- Network lines -->
+                <path d="M 510,135 L 290,135" class="pipe-line" />
+                <polygon points="290,135 300,130 300,140" class="pipe-arrow" />
+                <text x="400" y="125" font-family="Arial" font-size="10" font-weight="bold" fill="#1f4e78" text-anchor="middle">write(socket) -> Libère read()</text>
+
+                <path d="M 290,245 L 510,245" class="pipe-line" />
+                <polygon points="510,245 500,240 500,250" class="pipe-arrow" />
+                <text x="400" y="235" font-family="Arial" font-size="10" font-weight="bold" fill="#1f4e78" text-anchor="middle">write(socket) -> Libère read()</text>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ==================== PARTIE 2 ==================== -->
+    <section id="partie2">
+        <h2>3. Partie 2 : Messagerie TCP Asynchrone / Multi-threadée</h2>
+        <p>
+            Pour concevoir un véritable "Chat Hub" interactif en temps réel, il est nécessaire d'écouter simultanément deux sources d'événements asynchrones : la <strong>saisie clavier</strong> et la <strong>réception réseau</strong>. La solution implémentée dans <code>client_nb.c</code> et <code>server_nb.c</code> utilise le <strong>multithreading</strong> avec la bibliothèque standard <code>pthread</code> ainsi qu'une manipulation bas niveau du terminal.
+        </p>
+
+        <h3>Architecture Multi-threadée (Séparation des flux)</h3>
+        <p>
+            Pour chaque connexion active, le programme lance deux threads indépendants qui s'exécutent en parallèle et partagent la socket de communication :
+        </p>
+        <ul>
+            <li><strong>Le Thread Lecteur (<code>shats_reader</code> / <code>client_reader</code>)</strong> :
+                Il s'exécute dans une boucle infinie et effectue un appel <code>read()</code> bloquant sur la socket réseau. Dès que des données arrivent du réseau, le thread les traite et les affiche immédiatement à l'écran. Il ne dépend pas et n'attend pas d'activité sur le clavier.
+            </li>
+            <li><strong>Le Thread Écrivain (<code>shats_writer</code> / <code>client_writer</code>)</strong> :
+                Il surveille l'entrée standard clavier (<code>STDIN_FILENO</code>). Dès que l'utilisateur valide sa saisie, il transmet les données au destinataire via la socket à l'aide de l'appel <code>write()</code>.
+            </li>
+        </ul>
+
+        <h3>Le Mode Terminal Brut (<code>termios</code>) et la Saisie Asynchrone</h3>
+        <p>
+            Par défaut, les terminaux Unix fonctionnent en <strong>mode canonique</strong> (mode ligne) : les caractères saisis sont stockés par l'OS et ne sont transmis au programme que lorsque l'utilisateur appuie sur <code>Entrée</code>. De plus, le terminal réaffiche automatiquement les touches enfoncées (<strong>Echo</strong>).
+        </p>
+        <p>
+            Dans un chat asynchrone, ce comportement pose problème : si le lecteur reçoit un message du correspondant pendant que l'utilisateur est en train de taper sa propre ligne, les caractères reçus vont s'entremêler visuellement avec les caractères en cours de saisie, rendant l'interface illisible.
+        </p>
+        <p>
+            Pour résoudre cela, le programme configure le terminal en <strong>mode non canonique sans écho (mode brut)</strong> :
+        </p>
+        <pre><code><span class="type">void</span> enable_raw_mode() {
+  tcgetattr(STDIN_FILENO, &amp;orig_termios);
+  <span class="keyword">struct</span> termios raw = orig_termios;
+  <span class="comment">// Désactive ICANON (mode ligne) et ECHO (affichage automatique des touches)</span>
+  raw.c_lflag &amp;= ~(ICANON | ECHO);
+  tcsetattr(STDIN_FILENO, TCSANOW, &amp;raw);
+}</code></pre>
+        <p>
+            Grâce à ce mode brut, le programme intercepte chaque touche instantanément (<code>read(STDIN_FILENO, &amp;c, 1)</code>). C'est le programme qui gère manuellement l'affichage à l'écran (<code>putchar(c)</code>), la touche Retour arrière (<code>Backspace</code> modélisée par <code>\b \b</code> pour effacer les caractères) et la touche Entrée (<code>\n</code>). Le texte tapé par l'utilisateur est stocké au fur et à mesure dans un buffer local dynamique (<code>args-&gt;input_buffer</code>).
+        </p>
+
+        <h3>Synchronisation et Cohérence de l'Affichage (<code>Mutex</code>)</h3>
+        <p>
+            Puisque le thread lecteur et le thread écrivain peuvent vouloir écrire sur l'écran (la sortie standard) en même temps, il y a un risque important de concurrence et de corruption graphique.
+        </p>
+        <p>
+            Pour éviter cela, les deux threads partagent un <strong>verrou d'exclusion mutuelle (<code>pthread_mutex_t</code>)</strong> pour assurer l'atomicité des opérations d'affichage :
+        </p>
+        <ul>
+            <li><strong>Lorsqu'un message réseau arrive</strong> :
+                Le thread lecteur verrouille le mutex, efface la ligne courante où l'utilisateur était en train de taper grâce au code d'échappement ANSI <code>\r\033[K</code> (retour chariot + effacement de la ligne), affiche le message reçu du correspondant, réaffiche proprement le prompt d'écriture (<code>client : </code> ou <code>Server : </code>) et redessine exactement le texte que l'utilisateur avait commencé à taper avant l'interruption. Enfin, il déverrouille le mutex.
+                <pre><code>    pthread_mutex_lock(&amp;args-&gt;lock);
+    
+    <span class="comment">// Efface la ligne courante (où l'utilisateur est en train de taper)</span>
+    printf(<span class="string">"\r\033[K"</span>);
+    
+    <span class="comment">// Affiche le message réseau reçu</span>
+    printf(<span class="string">"server : %s\n"</span>, buffer);
+    
+    <span class="comment">// Redessine le prompt et le buffer actuel de l'utilisateur</span>
+    printf(<span class="string">"client : %s"</span>, args-&gt;input_buffer);
+    fflush(stdout);
+    
+    pthread_mutex_unlock(&amp;args-&gt;lock);</code></pre>
+            </li>
+            <li><strong>Lors de la saisie utilisateur</strong> :
+                Chaque caractère tapé ou effacé par l'utilisateur met à jour le buffer local et modifie l'affichage sous la protection du mutex pour garantir qu'aucun message reçu ne vienne s'insérer au milieu de l'opération d'affichage.
+            </li>
+        </ul>
+
+        <div class="svg-container">
+            <svg width="800" height="380" viewBox="0 0 800 380">
+                <!-- Client process box -->
+                <rect x="20" y="20" width="310" height="340" class="node-rect-root" />
+                <text x="175" y="45" class="node-text-title">CLIENT MULTI-THREADÉ</text>
+                
+                <!-- Client Reader Thread -->
+                <rect x="40" y="70" width="270" height="85" class="pipe-box" />
+                <text x="175" y="90" font-family="Arial" font-size="11" font-weight="bold" fill="#1f4e78" text-anchor="middle">Thread Lecteur (Reader)</text>
+                <text x="60" y="115" font-family="Consolas" font-size="9" fill="#475569">read(socket_fd) -> [bloqué sur réseau]</text>
+                <text x="60" y="135" font-family="Consolas" font-size="9" fill="#16a34a">Affiche message, redessine saisie</text>
+
+                <!-- Mutex indicator -->
+                <circle cx="175" cy="185" r="14" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5" />
+                <text x="175" y="189" font-family="Arial" font-size="9" font-weight="bold" fill="#854d0e" text-anchor="middle">MUTEX</text>
+
+                <!-- Client Writer Thread -->
+                <rect x="40" y="225" width="270" height="115" class="pipe-box" />
+                <text x="175" y="245" font-family="Arial" font-size="11" font-weight="bold" fill="#1f4e78" text-anchor="middle">Thread Écrivain (Writer)</text>
+                <text x="60" y="270" font-family="Consolas" font-size="9" fill="#475569">read(stdin, &amp;c, 1) -> [bloqué sur touche]</text>
+                <text x="60" y="290" font-family="Consolas" font-size="9" fill="#333333">Stocke dans input_buffer & putchar(c)</text>
+                <text x="60" y="310" font-family="Consolas" font-size="9" fill="#2563eb">Si Entrée: write(socket_fd)</text>
+
+                <!-- Socket connection stream -->
+                <rect x="380" y="100" width="80" height="180" rx="10" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2" />
+                <text x="420" y="175" font-family="Arial" font-size="11" font-weight="bold" fill="#475569" text-anchor="middle" transform="rotate(-90 420 175)">SOCK_STREAM (TCP)</text>
+
+                <!-- Server process box -->
+                <rect x="520" y="20" width="260" height="340" class="node-rect" />
+                <text x="650" y="45" class="node-text-title">SERVEUR MULTI-THREADÉ</text>
+
+                <!-- Server threads -->
+                <rect x="540" y="70" width="220" height="85" class="pipe-box" />
+                <text x="650" y="90" font-family="Arial" font-size="11" font-weight="bold" fill="#1f4e78" text-anchor="middle">Thread Lecteur (Reader)</text>
+                <text x="555" y="120" font-family="Consolas" font-size="9" fill="#333333">read(socket) -> affiche message</text>
+
+                <rect x="540" y="225" width="220" height="115" class="pipe-box" />
+                <text x="650" y="245" font-family="Arial" font-size="11" font-weight="bold" fill="#1f4e78" text-anchor="middle">Thread Écrivain (Writer)</text>
+                <text x="555" y="280" font-family="Consolas" font-size="9" fill="#333333">fgets(stdin) -> write(socket)</text>
+
+                <!-- Arrows -->
+                <path d="M 380,130 L 310,130" class="pipe-line" />
+                <polygon points="310,130 320,125 320,135" class="pipe-arrow" />
+                
+                <path d="M 310,295 L 380,295" class="pipe-line" />
+                <polygon points="380,295 370,290 370,300" class="pipe-arrow" />
+
+                <path d="M 460,130 L 540,130" class="pipe-line" />
+                <polygon points="540,130 530,125 530,135" class="pipe-arrow" />
+                
+                <path d="M 540,295 L 460,295" class="pipe-line" />
+                <polygon points="460,295 470,290 470,300" class="pipe-arrow" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- ==================== CONCLUSION ==================== -->
+    <section id="conclusion">
+        <h2>4. Conclusion Générale</h2>
+        <p>
+            Ce travail pratique sur la programmation réseau à travers le développement d'un <strong>Chat Hub TCP</strong> a permis d'opposer deux paradigms de programmation système :
+        </p>
+        <ol>
+            <li><strong>Le modèle bloquant synchrone</strong>, simple à écrire mais souffrant de limitations insurmontables en interactivité temps réel. Il montre que la programmation réseau ne peut pas se contenter d'un flux d'exécution séquentiel unique lorsque plusieurs canaux d'E/S indépendants doivent être gérés en parallèle.</li>
+            <li><strong>Le modèle multi-threadé asynchrone</strong>, qui tire parti de la puissance de la programmation concourante. L'utilisation combinée des threads POSIX (<code>pthread</code>), de la reconfiguration dynamique des terminaux (<code>termios</code>), et de la synchronisation fine par verrous d'exclusion mutuelle (<code>mutex</code>) fournit une solution robuste et élégante.</li>
+        </ol>
+        <p>
+            Ces concepts constituent la base du développement des serveurs réseau modernes de production (serveurs de jeux, serveurs HTTP de chat ou serveurs WebSockets) qui s'appuient sur le multi-threading ou sur des bibliothèques d'I/O asynchrones événementielles (comme <code>select()</code>, <code>poll()</code> ou <code>epoll()</code> sous Linux).
+        </p>
+    </section>
+
+</div>
+
+</body>
+</html>

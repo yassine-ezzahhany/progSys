@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport TP3 - EZZAHHANY YASSINE</title>
+    <style>
+        /* --- ACADEMIC WORD-TO-PDF STYLING --- */
+        @page {
+            size: A4;
+            margin: 2.5cm 2cm 2.5cm 2.5cm;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            color: #000000;
+            font-family: "Calibri", "Arial", "Segoe UI", sans-serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 20px auto;
+            padding: 2.5cm 2cm 2.5cm 2.5cm;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        /* --- COVER PAGE --- */
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 190mm;
+            box-sizing: border-box;
+            padding: 1cm 0;
+            margin-bottom: 2cm;
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+
+        .university-header {
+            text-align: center;
+            margin-bottom: 3cm;
+        }
+
+        .university-title {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #1f4e78;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .faculty-title {
+            font-size: 12pt;
+            font-weight: normal;
+            color: #595959;
+        }
+
+        .report-main {
+            text-align: center;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 14pt;
+            font-weight: bold;
+            color: #2f5597;
+            margin-bottom: 1.5cm;
+            text-transform: uppercase;
+            border-bottom: 2px solid #2f5597;
+            padding-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .report-title {
+            font-size: 26pt;
+            font-weight: bold;
+            color: #1f4e78;
+            line-height: 1.25;
+            margin-bottom: 0.5cm;
+        }
+
+        .report-subtitle {
+            font-size: 16pt;
+            font-weight: normal;
+            color: #595959;
+            margin-bottom: 2cm;
+        }
+
+        .student-details-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-top: 1.5pt solid #2f5597;
+            margin-top: 3cm;
+        }
+
+        /* --- TABLE OF CONTENTS --- */
+        .toc-section {
+            border: 1px solid #d3d3d3;
+            padding: 1.5cm;
+            margin-bottom: 2cm;
+            background-color: #fafafa;
+            page-break-after: always;
+        }
+
+        .toc-title {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #1f4e78;
+            border-bottom: 1px solid #2f5597;
+            padding-bottom: 5px;
+            margin-bottom: 1cm;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc-item {
+            margin-bottom: 0.6rem;
+            font-size: 11pt;
+        }
+
+        .toc-link {
+            text-decoration: none;
+            color: #000000;
+            font-weight: normal;
+        }
+
+        .toc-link:hover {
+            text-decoration: underline;
+            color: #2f5597;
+        }
+
+        /* --- CONTENT FORMATTING --- */
+        section {
+            margin-bottom: 2.5cm;
+        }
+
+        h2 {
+            font-size: 18pt;
+            color: #1f4e78;
+            margin-top: 1.5cm;
+            margin-bottom: 0.5cm;
+            padding-bottom: 3px;
+            border-bottom: 1px solid #2f5597;
+            page-break-before: always;
+        }
+
+        h3 {
+            font-size: 13pt;
+            color: #2f5597;
+            margin-top: 0.8cm;
+            margin-bottom: 0.3cm;
+            font-weight: bold;
+        }
+
+        p {
+            margin-bottom: 0.4cm;
+            text-align: justify;
+            font-size: 11pt;
+            color: #111111;
+        }
+
+        ul {
+            margin-left: 1.5cm;
+            margin-bottom: 0.4cm;
+        }
+
+        li {
+            margin-bottom: 0.2cm;
+            font-size: 11pt;
+        }
+
+        /* --- CODE FORMATTING --- */
+        pre {
+            background-color: #f8f9fa;
+            border: 1px solid #d3d3d3;
+            border-left: 3.5px solid #2f5597;
+            padding: 0.8cm 1cm;
+            margin: 0.6cm 0;
+            overflow-x: auto;
+            page-break-inside: avoid;
+            border-radius: 4px;
+        }
+
+        code {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 9.5pt;
+            color: #000000;
+        }
+
+        /* Inline code styling */
+        code:not(pre code) {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 9.5pt;
+            background-color: #f2f2f2;
+            color: #2d3748;
+            padding: 2px 5px;
+            border-radius: 3px;
+            border: 1px solid #e1e1e1;
+        }
+
+        /* Code syntax highlighting */
+        .keyword { color: #0056b3; font-weight: bold; }
+        .type { color: #8a3c00; font-weight: bold; }
+        .string { color: #1e7e34; }
+        .comment { color: #6c757d; font-style: italic; }
+        .preprocessor { color: #6f42c1; }
+
+        /* --- SVG STYLING --- */
+        .svg-container {
+            text-align: center;
+            margin: 1.5cm 0;
+            background: #ffffff;
+            padding: 1cm;
+            border: 1px solid #d3d3d3;
+            border-radius: 4px;
+            page-break-inside: avoid;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .node-rect {
+            fill: #fdfdfd;
+            stroke: #2f5597;
+            stroke-width: 1.5;
+            rx: 6px;
+        }
+
+        .node-rect-root {
+            fill: #f2f5fa;
+            stroke: #1f4e78;
+            stroke-width: 2.5;
+            rx: 6px;
+        }
+
+        .node-text-title {
+            font-family: "Calibri", "Arial", sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            fill: #1f4e78;
+            text-anchor: middle;
+        }
+
+        .node-text-detail {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 10px;
+            fill: #333333;
+        }
+
+        .pipe-line {
+            stroke: #2f5597;
+            stroke-width: 3;
+            stroke-dasharray: 6 3;
+            fill: none;
+        }
+
+        .pipe-arrow {
+            fill: #1f4e78;
+        }
+
+        .pipe-box {
+            fill: #f8fafc;
+            stroke: #cbd5e1;
+            stroke-width: 1;
+            rx: 4px;
+        }
+
+        /* --- PAGE BREAK OPTIMIZATIONS FOR PRINT/PDF --- */
+        @media print {
+            body {
+                background-color: #ffffff;
+                color: #000000;
+                font-size: 11pt;
+            }
+
+            .container {
+                width: auto;
+                min-height: auto;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .cover-page {
+                height: auto;
+                min-height: 190mm;
+                page-break-after: always;
+                page-break-inside: avoid;
+            }
+
+            h2 {
+                page-break-before: always;
+            }
+
+            pre {
+                page-break-inside: avoid;
+                background-color: #f8f9fa !important;
+                border: 1px solid #cbd5e1 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ==================== COVER PAGE ==================== -->
+    <div class="cover-page">
+        <div class="university-header">
+            <p class="university-title">Université Hassan 1er</p>
+            <p class="faculty-title">Faculté des Sciences et Techniques, Settat</p>
+        </div>
+
+        <div class="report-main">
+            <span class="badge">Programmation Système et Réseau</span>
+            <p class="report-title">Rapport de Travaux Pratiques 3</p>
+            <p class="report-subtitle">Signaux et Communication Inter-Processus (Tubes)</p>
+        </div>
+
+        <table class="student-details-table">
+            <tr>
+                <td style="width:50%; padding-top:0.5cm; vertical-align:top; text-align:left;">
+                    <span style="font-size:10pt; color:#595959; text-transform:uppercase; font-weight:bold; display:block; margin-bottom:5px;">Présenté par :</span>
+                    <span style="font-size:12pt; font-weight:bold; color:#000000; display:block;">EZZAHHANY YASSINE</span>
+                </td>
+                <td style="width:50%; padding-top:0.5cm; vertical-align:top; text-align:right;">
+                    <span style="font-size:11pt; font-weight:bold; color:#2f5597; display:block;">FIGI - Semestre 4 (S4)</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ==================== TABLE OF CONTENTS ==================== -->
+    <div class="toc-section">
+        <h3 class="toc-title">Table des Matières</h3>
+        <ul class="toc-list">
+            <li class="toc-item"><a class="toc-link" href="#introduction">1. Introduction Générale</a></li>
+            <li class="toc-item"><a class="toc-link" href="#exercice1">2. Exercice 1 : Capture de SIGINT et Sauvegarde de Données</a></li>
+            <li class="toc-item"><a class="toc-link" href="#exercice2">3. Exercice 2 : Écriture dans un tube sans lecteur (Analyse de SIGPIPE)</a></li>
+            <li class="toc-item"><a class="toc-link" href="#exercice3">4. Exercice 3 : Communication Bidirectionnelle Père/Fils via Tubes</a></li>
+            <li class="toc-item"><a class="toc-link" href="#conclusion">5. Conclusion Générale</a></li>
+        </ul>
+    </div>
+
+    <!-- ==================== INTRODUCTION ==================== -->
+    <section id="introduction">
+        <h2>1. Introduction Générale</h2>
+        <p>
+            Ce travail pratique est dédié à l'étude des mécanismes de communication et d'interaction de bas niveau fournis par les noyaux système de type Unix (POSIX). 
+            La programmation système ne se limite pas à la simple création concourante de processus ; elle requiert également la mise en œuvre de canaux d'échange de données sécurisés (les tubes) 
+            et la gestion d'événements asynchrones transmis par le système (les signaux).
+        </p>
+        <p>
+            À travers les trois exercices proposés, nous abordons la modification du comportement par défaut d'un processus lors de l'envoi du signal d'interruption <code>SIGINT</code>, 
+            l'étude d'une anomalie classique de rupture de flux menant à l'envoi de <code>SIGPIPE</code>, et enfin la mise en place d'une topologie de communication bidirectionnelle 
+            entre deux processus parent/fils à l'aide de primitives systèmes <code>pipe</code>.
+        </p>
+    </section>
+
+    <!-- ==================== EXERCICE 1 ==================== -->
+    <section id="exercice1">
+        <h2>2. Exercice 1 : Capture de SIGINT et Sauvegarde de Données</h2>
+        <h3>Analyse & Objectifs</h3>
+        <p>
+            L'exercice demande de modifier le comportement standard du processus lors de la réception du signal <code>SIGINT</code> (couramment envoyé via <code>Ctrl-C</code> dans le terminal). 
+            Au lieu de s'arrêter brusquement, le processus doit intercepter le signal, effectuer une écriture d'urgence (sauvegarde de la progression courante) dans le fichier <code>sauvegarde.txt</code>, 
+            et se terminer proprement. 
+        </p>
+        <p>
+            Pour réaliser cette tâche en respectant les spécifications de sécurité POSIX les plus strictes :
+        </p>
+        <ul>
+            <li>Nous utilisons la structure et la fonction <code>sigaction()</code> qui s'avèrent fiables et évitent les effets de bord indésirables ou les pertes de gestionnaires de l'ancien appel <code>signal()</code>.</li>
+            <li>Nous veillons à ce que le gestionnaire de signal (qui s'exécute de façon asynchrone) n'appelle que des fonctions garanties <strong>Async-Signal-Safe</strong> (réentrantes). Les fonctions de bibliothèque de haut niveau comme <code>fopen()</code>, <code>fprintf()</code> ou <code>printf()</code> ne le sont pas car elles manipulent des tampons globaux non protégés. Nous utilisons donc à leur place les appels système directs <code>open()</code>, <code>write()</code> et <code>close()</code>.</li>
+        </ul>
+
+        <h3>Code Source (<code>exercice1.c</code>)</h3>
+        <pre><code><span class="preprocessor">#include &lt;stdio.h&gt;</span>
+<span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+<span class="preprocessor">#include &lt;unistd.h&gt;</span>
+<span class="preprocessor">#include &lt;signal.h&gt;</span>
+<span class="preprocessor">#include &lt;fcntl.h&gt;</span>
+<span class="preprocessor">#include &lt;string.h&gt;</span>
+
+<span class="comment">// Variable globale volatile pour garantir l'accès direct et atomique lors du signal</span>
+<span class="keyword">volatile</span> <span class="type">sig_atomic_t</span> iteration_count = 0;
+
+<span class="comment">// Conversion manuelle d'un entier en chaîne (conforme "async-signal-safe")</span>
+<span class="type">void</span> int_to_str(<span class="type">int</span> n, <span class="type">char</span> *str) {
+    <span class="type">int</span> i = 0;
+    <span class="keyword">if</span> (n == 0) {
+        str[i++] = <span class="string">'0'</span>;
+    } <span class="keyword">else</span> {
+        <span class="keyword">while</span> (n &gt; 0) {
+            str[i++] = (n % 10) + <span class="string">'0'</span>;
+            n /= 10;
+        }
+    }
+    str[i] = <span class="string">'\0'</span>;
+    <span class="keyword">for</span> (<span class="type">int</span> j = 0; j &lt; i / 2; j++) {
+        <span class="type">char</span> temp = str[j];
+        str[j] = str[i - 1 - j];
+        str[i - 1 - j] = temp;
+    }
+}
+
+<span class="comment">// Gestionnaire du signal SIGINT</span>
+<span class="type">void</span> handle_sigint(<span class="type">int</span> sig) {
+    (<span class="type">void</span>)sig; <span class="comment">// Éviter l'avertissement de compilation</span>
+    
+    <span class="type">const char</span> *filename = <span class="string">"sauvegarde.txt"</span>;
+    
+    <span class="comment">// O_WRONLY | O_CREAT | O_TRUNC : Remplace/crée le fichier de sauvegarde</span>
+    <span class="type">int</span> fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    <span class="keyword">if</span> (fd &lt; 0) {
+        <span class="type">const char</span> *err = <span class="string">"Erreur de création de sauvegarde.txt\n"</span>;
+        write(STDERR_FILENO, err, strlen(err));
+        exit(EXIT_FAILURE);
+    }
+
+    <span class="type">const char</span> *header = <span class="string">"=== SAUVEGARDE ETAT PROGRAMME ===\n"</span>;
+    <span class="type">const char</span> *status = <span class="string">"Statut : Arrêté via SIGINT (Ctrl-C)\n"</span>;
+    <span class="type">const char</span> *iter_msg = <span class="string">"Derniere iteration atteinte : "</span>;
+
+    write(fd, header, strlen(header));
+    write(fd, status, strlen(status));
+    write(fd, iter_msg, strlen(iter_msg));
+    
+    <span class="type">char</span> count_buf[12];
+    int_to_str(iteration_count, count_buf);
+    write(fd, count_buf, strlen(count_buf));
+    write(fd, "\n=================================\n", 35);
+    
+    close(fd);
+
+    <span class="type">const char</span> *console = <span class="string">"\n[Signal] SIGINT intercepte. Sauvegarde dans 'sauvegarde.txt' OK. Arrêt.\n"</span>;
+    write(STDOUT_FILENO, console, strlen(console));
+    
+    exit(EXIT_SUCCESS);
+}
+
+<span class="type">int</span> main() {
+    printf(<span class="string">"=========================================================\n"</span>);
+    printf(<span class="string">"  Exercice 1 : Capture de SIGINT et Sauvegarde de données\n"</span>);
+    printf(<span class="string">"=========================================================\n"</span>);
+    printf(<span class="string">"[PID : %d] Programme en cours. Appuyez sur Ctrl-C...\n\n"</span>, getpid());
+
+    <span class="comment">// Liaison du signal SIGINT à notre gestionnaire propre via sigaction</span>
+    <span class="keyword">struct</span> sigaction sa;
+    sa.sa_handler = handle_sigint;
+    sigemptyset(&amp;sa.sa_mask);
+    sa.sa_flags = 0;
+
+    <span class="keyword">if</span> (sigaction(SIGINT, &amp;sa, NULL) == -1) {
+        perror(<span class="string">"Erreur sigaction"</span>);
+        <span class="keyword">return</span> EXIT_FAILURE;
+    }
+
+    <span class="comment">// Tâche fictive infinie incrémentant un compteur de progression</span>
+    <span class="keyword">while</span> (1) {
+        iteration_count++;
+        printf(<span class="string">"  -&gt; Etape %d en cours...\n"</span>, iteration_count);
+        sleep(1);
+    }
+
+    <span class="keyword">return</span> EXIT_SUCCESS;
+}</code></pre>
+
+        <h3>Ressenti et Fonctionnement Pratique</h3>
+        <p>
+            Lorsqu'on lance l'exécution, le terminal affiche la progression séquentielle. Dès que l'utilisateur appuie sur <code>Ctrl-C</code>, le flux d'exécution principal s'arrête, 
+            le handler est invoqué, le fichier est écrit, et le programme s'achève de façon ordonnée. Une lecture ultérieure de <code>sauvegarde.txt</code> confirme la réussite de l'écriture.
+        </p>
+    </section>
+
+    <!-- ==================== EXERCICE 2 ==================== -->
+    <section id="exercice2">
+        <h2>3. Exercice 2 : Écriture dans un tube sans lecteur (Analyse de SIGPIPE)</h2>
+        <h3>Analyse du Déroulement du Code</h3>
+        <p>
+            Le code proposé effectue les actions successives suivantes :
+        </p>
+        <ol>
+            <li>Il réserve un espace pour un tube <code>tube[2]</code> de deux descripteurs.</li>
+            <li>Il instancie un tube via <code>pipe(tube)</code>.</li>
+            <li>Il ferme explicitement l'extrémité de lecture du tube : <code>close(tube[0])</code>. Désormais, le tube n'a plus <strong>aucun lecteur actif</strong>.</li>
+            <li>Il essaie de copier la chaîne <code>"AZERTYUIOP"</code> sur le descripteur d'écriture restant : <code>write(tube[1], buffer, ...)</code>.</li>
+        </ol>
+
+        <h3>Analyse Système et Réponse</h3>
+        <p>
+            Dans les spécifications système d'Unix, écrire dans un tube ne disposant plus de lecteurs actifs est considéré comme une anomalie grave :
+            les octets écrits ne pourront jamais être consommés.
+        </p>
+        <p>
+            Pour signaler ce dysfonctionnement à l'application sans gaspiller de mémoire système ou bloquer le processus, le noyau Unix envoie 
+            immédiatement le signal <strong><code>SIGPIPE</code> (Signal 13 - Broken Pipe)</strong> au processus écrivain.
+        </p>
+        <p>
+            Par conséquent, la réponse à la question posée est :
+        </p>
+        <blockquote>
+            <strong>En cas d'erreur (lors du write dans le tube sans lecteur), le code fait l'objet du signal <code>SIGPIPE</code> (Signal de numéro 13).</strong>
+        </blockquote>
+        <p>
+            Puisque ce signal n'est pas intercepté par le programme (aucun gestionnaire n'est installé), la sentence par défaut est appliquée par l'OS : 
+            le programme est <strong>tué sur le coup</strong>. Ainsi, la fonction d'affichage final <code>fprintf(stdout, "Fin du programme \n")</code> n'est <strong>jamais atteinte</strong>.
+        </p>
+    </section>
+
+    <!-- ==================== EXERCICE 3 ==================== -->
+    <section id="exercice3">
+        <h2>4. Exercice 3 : Communication Bidirectionnelle Père/Fils via Tubes</h2>
+        <h3>Analyse & Topologie de Communication</h3>
+        <p>
+            Un tube (pipe) Unix est par nature <strong>unidirectionnel</strong>. L'échange d'informations dans les deux sens (Père vers Fils ET Fils vers Père) 
+            nécessite par conséquent l'utilisation de **deux tubes distincts** :
+        </p>
+        <ul>
+            <li><strong>Le tube <code>p1</code> (Père vers Fils)</strong> : Le père écrit ses entiers sur <code>p1[1]</code> et le fils les lit depuis <code>p1[0]</code>.</li>
+            <li><strong>Le tube <code>p2</code> (Fils vers Père)</strong> : Le fils écrit les valeurs doublées sur <code>p2[1]</code> et le père les lit depuis <code>p2[0]</code>.</li>
+        </ul>
+        <p>
+            Pour éviter tout blocage ou interférence, il est impératif que chaque processus ferme systématiquement les descripteurs de fichiers dont il n'a pas l'usage.
+        </p>
+
+        <h3>Schéma de l'Architecture Réseau/IPC</h3>
+        <div class="svg-container">
+            <svg width="800" height="260" viewBox="0 0 800 260">
+                <!-- Processus Pere (Gauche) -->
+                <rect x="30" y="30" width="200" height="200" class="node-rect-root" />
+                <text x="130" y="60" class="node-text-title">PROCESSUS PÈRE</text>
+                <text x="50" y="100" class="node-text-detail">- Écrit dans p1[1] (Entiers)</text>
+                <text x="50" y="130" class="node-text-detail">- Lit depuis p2[0] (Doubles)</text>
+                <text x="50" y="160" class="node-text-detail">- Ferme p1[0] et p2[1]</text>
+                <text x="50" y="190" class="node-text-detail">PID: Parent (Wait)</text>
+
+                <!-- Processus Fils (Droite) -->
+                <rect x="570" y="30" width="200" height="200" class="node-rect" />
+                <text x="670" y="60" class="node-text-title">PROCESSUS FILS</text>
+                <text x="590" y="100" class="node-text-detail">- Lit depuis p1[0]</text>
+                <text x="590" y="130" class="node-text-detail">- Multiplie par 2</text>
+                <text x="590" y="160" class="node-text-detail">- Écrit dans p2[1]</text>
+                <text x="590" y="190" class="node-text-detail">- Ferme p1[1] et p2[0]</text>
+
+                <!-- Tube 1 (Haut) -->
+                <rect x="290" y="70" width="220" height="40" class="pipe-box" />
+                <path d="M 230,90 L 570,90" class="pipe-line" />
+                <polygon points="570,90 560,85 560,95" class="pipe-arrow" />
+                <text x="400" y="63" font-family="Arial" font-size="11" font-weight="bold" fill="#1f4e78" text-anchor="middle">TUBE P1 (Père -> Fils)</text>
+                <text x="400" y="94" font-family="Consolas" font-size="9" fill="#16a34a" text-anchor="middle">Envoi de 5 entiers bruts</text>
+
+                <!-- Tube 2 (Bas) -->
+                <rect x="290" y="150" width="220" height="40" class="pipe-box" />
+                <path d="M 570,170 L 230,170" class="pipe-line" />
+                <polygon points="230,170 240,165 240,175" class="pipe-arrow" />
+                <text x="400" y="143" font-family="Arial" font-size="11" font-weight="bold" fill="#1f4e78" text-anchor="middle">TUBE P2 (Fils -> Père)</text>
+                <text x="400" y="174" font-family="Consolas" font-size="9" fill="#16a34a" text-anchor="middle">Retour des doubles calculés</text>
+            </svg>
+        </div>
+
+        <h3>Code Source (<code>exercice3.c</code>)</h3>
+        <pre><code><span class="preprocessor">#include &lt;stdio.h&gt;</span>
+<span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+<span class="preprocessor">#include &lt;unistd.h&gt;</span>
+<span class="preprocessor">#include &lt;sys/types.h&gt;</span>
+<span class="preprocessor">#include &lt;sys/wait.h&gt;</span>
+
+<span class="type">int</span> main() {
+    <span class="type">int</span> p1[2]; <span class="comment">// Tube Père -> Fils</span>
+    <span class="type">int</span> p2[2]; <span class="comment">// Tube Fils -> Père</span>
+
+    printf(<span class="string">"=======================================================================\n"</span>);
+    printf(<span class="string">"  Exercice 3 : Communication bidirectionnelle via tubes (Père &lt;-&gt; Fils) \n"</span>);
+    printf(<span class="string">"=======================================================================\n"</span>);
+
+    <span class="comment">// Création des deux tubes</span>
+    <span class="keyword">if</span> (pipe(p1) != 0 || pipe(p2) != 0) {
+        perror(<span class="string">"Erreur lors de l'initialisation des tubes"</span>);
+        <span class="keyword">return</span> EXIT_FAILURE;
+    }
+
+    <span class="type">pid_t</span> pid = fork();
+
+    <span class="keyword">if</span> (pid &lt; 0) {
+        perror(<span class="string">"Erreur fork"</span>);
+        <span class="keyword">return</span> EXIT_FAILURE;
+    } 
+    <span class="keyword">else</span> <span class="keyword">if</span> (pid == 0) {
+        <span class="comment">// --- PROCESSUS FILS ---</span>
+        close(p1[1]); <span class="comment">// Ferme l'écriture sur p1 (le fils ne fait que lire p1)</span>
+        close(p2[0]); <span class="comment">// Ferme la lecture sur p2 (le fils ne fait qu'écrire p2)</span>
+
+        printf(<span class="string">"[Fils - PID: %d] Prêt à lire sur p1 et écrire sur p2.\n"</span>, getpid());
+        
+        <span class="type">int</span> val_recue;
+        <span class="type">int</span> val_double;
+
+        <span class="keyword">for</span> (<span class="type">int</span> i = 0; i &lt; 5; i++) {
+            <span class="comment">// Lecture bloquante de l'entier envoyé par le père</span>
+            <span class="keyword">if</span> (read(p1[0], &amp;val_recue, <span class="keyword">sizeof</span>(<span class="type">int</span>)) &lt;= 0) {
+                perror(<span class="string">"[Fils] Erreur lecture"</span>);
+                exit(EXIT_FAILURE);
+            }
+            printf(<span class="string">"[Fils - PID: %d] Reçu : %d\n"</span>, getpid(), val_recue);
+
+            <span class="comment">// Calcul imposé par l'énoncé</span>
+            val_double = val_recue * 2;
+
+            <span class="comment">// Renvoi immédiat sur p2</span>
+            <span class="keyword">if</span> (write(p2[1], &amp;val_double, <span class="keyword">sizeof</span>(<span class="type">int</span>)) &lt;= 0) {
+                perror(<span class="string">"[Fils] Erreur écriture"</span>);
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        close(p1[0]);
+        close(p2[1]);
+        printf(<span class="string">"[Fils - PID: %d] Travail terminé.\n"</span>, getpid());
+        exit(EXIT_SUCCESS);
+    } 
+    <span class="keyword">else</span> {
+        <span class="comment">// --- PROCESSUS PÈRE ---</span>
+        close(p1[0]); <span class="comment">// Ferme la lecture sur p1 (le père ne fait qu'écrire p1)</span>
+        close(p2[1]); <span class="comment">// Ferme l'écriture sur p2 (le père ne fait que lire p2)</span>
+
+        <span class="type">int</span> valeurs_test[5] = {5, 12, 23, 42, 99};
+        <span class="type">int</span> resultats[5];
+
+        printf(<span class="string">"[Père - PID: %d] Début de la transmission bidirectionnelle...\n\n"</span>, getpid());
+
+        <span class="keyword">for</span> (<span class="type">int</span> i = 0; i &lt; 5; i++) {
+            printf(<span class="string">"[Père] Envoi : %d\n"</span>, valeurs_test[i]);
+            
+            <span class="comment">// Écriture de l'entier</span>
+            <span class="keyword">if</span> (write(p1[1], &amp;valeurs_test[i], <span class="keyword">sizeof</span>(<span class="type">int</span>)) &lt;= 0) {
+                perror(<span class="string">"[Père] Erreur écriture"</span>);
+                <span class="keyword">return</span> EXIT_FAILURE;
+            }
+
+            <span class="comment">// Attente bloquante du retour</span>
+            <span class="keyword">if</span> (read(p2[0], &amp;resultats[i], <span class="keyword">sizeof</span>(<span class="type">int</span>)) &lt;= 0) {
+                perror(<span class="string">"[Père] Erreur lecture"</span>);
+                <span class="keyword">return</span> EXIT_FAILURE;
+            }
+            printf(<span class="string">"[Père] Reçu en retour : %d\n\n"</span>, resultats[i]);
+        }
+
+        <span class="comment">// Synchronisation finale pour éviter les processus zombies</span>
+        wait(NULL);
+        
+        close(p1[1]);
+        close(p2[0]);
+
+        <span class="comment">// Affichage synthétique des résultats</span>
+        printf(<span class="string">"=======================================================================\n"</span>);
+        printf(<span class="string">"[Bilan Père] Validation finale des calculs :\n"</span>);
+        <span class="keyword">for</span> (<span class="type">int</span> i = 0; i &lt; 5; i++) {
+            printf(<span class="string">"  - Entrée: %2d  ==&gt;  Sortie Fils: %3d (Validation: %s)\n"</span>, 
+                   valeurs_test[i], resultats[i], 
+                   (valeurs_test[i] * 2 == resultats[i]) ? <span class="string">"OK"</span> : <span class="string">"ÉCHEC"</span>);
+        }
+        printf(<span class="string">"=======================================================================\n"</span>);
+    }
+
+    return EXIT_SUCCESS;
+}</code></pre>
+    </section>
+
+    <!-- ==================== CONCLUSION ==================== -->
+    <section id="conclusion">
+        <h2>5. Conclusion Générale</h2>
+        <p>
+            Ce travail pratique a permis d'acquérir une expérience concrète et approfondie des couches bas niveau de communication et de gestion asynchrone en environnement Unix. 
+            Nous avons d'une part maîtrisé la capture des signaux POSIX (<code>sigaction</code>) en garantissant la sécurité d'exécution par l'usage exclusif de primitives réentrantes, 
+            évitant ainsi les blocages critiques inhérents aux interruptions de signaux.
+        </p>
+        <p>
+            D'autre part, la manipulation des tubes nous a sensibilisés aux contraintes physiques des flux de données partagés par le noyau. Nous avons analysé et observé la terminaison par 
+            <code>SIGPIPE</code> lors de l'écriture sans lecteurs, et conçu avec succès un canal d'échange bidirectionnel stable, structuré et exempt de blocage mutuel (deadlock).
+        </p>
+        <p>
+            Ces notions fondamentales d'IPC (Inter-Process Communication) et de programmation événementielle constituent la base technique nécessaire pour appréhender les concepts avancés 
+            de réseau (Sockets) et de développement distribué multi-processus/multi-threads.
+        </p>
+    </section>
+
+</div>
+
+</body>
+</html>
