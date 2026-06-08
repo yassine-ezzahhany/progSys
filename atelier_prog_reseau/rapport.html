@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport de Projet - Atelier Programmation Réseau</title>
+    
+    <!-- Typographies Modernes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           CSS RESET & CONFIGURATION DES VARIABLES (THEME DARK PREMIUM)
+           ========================================================================== */
+        :root {
+            --bg-color: #0b0f19;
+            --surface-color: #151b2c;
+            --surface-accent: #1e263d;
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-glow: rgba(99, 102, 241, 0.15);
+            --secondary: #8b5cf6;
+            --accent: #10b981;
+            --accent-bg: rgba(16, 185, 129, 0.1);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-focus: rgba(99, 102, 241, 0.4);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--bg-color);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Barre de défilement stylisée */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--surface-accent);
+            border-radius: var(--radius-sm);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* ==========================================================================
+           CONTENEURS PRINCIPAUX & DECORATIONS DE FOND
+           ========================================================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+        }
+
+        /* Effets de halos lumineux d'arrière-plan */
+        .glow-orb-1 {
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            filter: blur(80px);
+            pointer-events: none;
+        }
+
+        .glow-orb-2 {
+            position: absolute;
+            top: 600px;
+            left: -300px;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            filter: blur(80px);
+            pointer-events: none;
+        }
+
+        /* ==========================================================================
+           PAGE DE GARDE / EN-TETE HERO
+           ========================================================================== */
+        header {
+            padding: 80px 0 50px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 100px;
+            background: var(--primary-glow);
+            color: var(--primary-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            animation: fadeIn 0.8s ease;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            color: #ffffff;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ffffff 30%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            font-weight: 400;
+        }
+
+        /* Section de saisie interactive des noms des binômes */
+        .authors-box {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(21, 27, 44, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            padding: 24px 40px;
+            border-radius: var(--radius-md);
+            margin: 0 auto;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .authors-box:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.15);
+        }
+
+        .authors-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .inputs-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .input-author-wrapper {
+            position: relative;
+        }
+
+        .input-author {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 10px 16px;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 0.95rem;
+            text-align: center;
+            width: 200px;
+            transition: var(--transition);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .input-author:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .input-author::placeholder {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .metadata-school {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .metadata-school span {
+            color: var(--primary-light);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           NAVIGATION PAR ONGLETS (TABS BAR)
+           ========================================================================== */
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            margin: 40px auto;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1px;
+            max-width: 900px;
+            gap: 10px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            padding: 12px 24px;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-light);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* Conteneurs de pages */
+        .tab-content {
+            display: none;
+            animation: fadeInTab 0.4s ease-out forwards;
+            padding-bottom: 80px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeInTab {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==========================================================================
+           ELEMENTS DE LA DOCUMENTATION (CARDS & LAYOUTS)
+           ========================================================================== */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-title-icon {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .icon-circle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-light);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .card h3 {
+            font-size: 1.35rem;
+            color: #ffffff;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            margin-bottom: 15px;
+        }
+
+        .card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .card ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .card ul li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            color: var(--primary-light);
+        }
+
+        /* ==========================================================================
+           INTERACTIVE SIMULATOR (PLAYGROUND)
+           ========================================================================== */
+        .simulator-box {
+            background: #111625;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sim-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .sim-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sim-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sim-menu-btn {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            padding: 14px 20px;
+            text-align: left;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sim-menu-btn:hover {
+            background: var(--surface-accent);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .sim-menu-btn.active {
+            background: var(--primary-glow);
+            color: var(--primary-light);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.1);
+        }
+
+        .sim-badge-type {
+            font-size: 0.75rem;
+            background: rgba(255,255,255,0.08);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: var(--text-muted);
+        }
+
+        .sim-menu-btn.active .sim-badge-type {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .sim-display {
+            background: #080c14;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-height: 400px;
+            position: relative;
+        }
+
+        .packet-viewer {
+            background: rgba(255,255,255,0.02);
+            border-radius: var(--radius-sm);
+            padding: 15px;
+            border: 1px dashed rgba(255,255,255,0.05);
+        }
+
+        .packet-header {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary-light);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .packet-data {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #ffffff;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .flow-visual {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(99, 102, 241, 0.03);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            z-index: 2;
+        }
+
+        .node-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .node.active .node-icon {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px var(--primary-glow);
+            background: var(--primary-glow);
+            color: var(--primary-light);
+        }
+
+        .node-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .pipe-line {
+            flex-grow: 1;
+            height: 4px;
+            background: var(--surface-accent);
+            margin: 0 15px;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .pipe-pulse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 25px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+            border-radius: 50%;
+            animation: pulseStream 2s infinite linear;
+            display: none;
+        }
+
+        .pipe-pulse.active {
+            display: block;
+        }
+
+        @keyframes pulseStream {
+            0% { left: 0%; }
+            100% { left: 90%; }
+        }
+
+        .sim-explanation {
+            border-left: 3px solid var(--secondary);
+            padding-left: 15px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================================
+           SCENARIOS DE TESTS (CHECKLIST INTERACTIVE)
+           ========================================================================== */
+        .test-checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .test-item {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            align-items: start;
+            gap: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .test-item:hover {
+            border-color: rgba(255,255,255,0.15);
+            background: var(--surface-accent);
+        }
+
+        .test-checkbox {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            border: 2px solid var(--text-muted);
+            margin-top: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: #ffffff;
+            transition: var(--transition);
+        }
+
+        .test-item.checked .test-checkbox {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .test-item.checked .test-checkbox::before {
+            content: "✓";
+            font-weight: 800;
+        }
+
+        .test-body h4 {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 5px;
+            transition: var(--transition);
+        }
+
+        .test-item.checked .test-body h4 {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .test-body p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+        }
+
+        /* ==========================================================================
+           SECTION DIFFICULTES (TIMELINE VERTICALE)
+           ========================================================================== */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin-top: 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--surface-accent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-color);
+            border: 3px solid var(--primary);
+            z-index: 2;
+        }
+
+        .timeline-item.difficulty-item .timeline-marker {
+            border-color: var(--secondary);
+        }
+
+        .timeline-content {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 24px;
+        }
+
+        .timeline-title {
+            font-size: 1.25rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .tag.tag-danger {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .tag.tag-success {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .timeline-solution {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .timeline-solution h5 {
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* ==========================================================================
+           BLOCS DE CODES / CONFIGURATION
+           ========================================================================== */
+        code, pre {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        code {
+            padding: 2px 6px;
+            color: var(--primary-light);
+            font-size: 0.9em;
+        }
+
+        pre {
+            padding: 20px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            margin: 15px 0;
+            border-radius: var(--radius-sm);
+        }
+
+        pre code {
+            padding: 0;
+            background: transparent;
+            color: #e5e7eb;
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================================================
+           FOOTER / PIED DE PAGE
+           ========================================================================== */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 50px;
+        }
+
+        footer strong {
+            color: var(--text-secondary);
+        }
+
+        /* ==========================================================================
+           ANIMATIONS & IMPRESSION
+           ========================================================================== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CSS d'impression haut de gamme (Génération PDF) */
+        @media print {
+            :root {
+                --bg-color: #ffffff;
+                --text-primary: #111827;
+                --text-secondary: #4b5563;
+                --border-color: #e5e7eb;
+            }
+
+            body {
+                background: #ffffff;
+                color: #111827;
+                font-size: 11pt;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .glow-orb-1, .glow-orb-2, .tabs-nav, .sim-menu, .pipe-line, .tab-btn {
+                display: none !important;
+            }
+
+            /* Forcer tous les onglets à s'afficher les uns après les autres pour le PDF */
+            .tab-content {
+                display: block !important;
+                opacity: 1 !important;
+                page-break-after: always;
+                padding-bottom: 30px;
+            }
+
+            /* Remplacer les inputs d'auteurs par leur valeur brute de texte lors de l'impression */
+            .inputs-container {
+                display: none !important;
+            }
+
+            .print-authors-visible {
+                display: block !important;
+                font-size: 1.15rem;
+                font-weight: 600;
+                color: #111827;
+                margin-top: 15px;
+            }
+
+            header h1 {
+                background: none;
+                -webkit-text-fill-color: initial;
+                color: #000000;
+                font-size: 24pt;
+            }
+
+            .card, .timeline-content, .simulator-box, .sim-display {
+                background: #ffffff !important;
+                border: 1px solid #9ca3af !important;
+                box-shadow: none !important;
+                color: #111827 !important;
+                page-break-inside: avoid;
+            }
+
+            pre, code {
+                background: #f3f4f6 !important;
+                color: #111827 !important;
+                border: 1px solid #d1d5db !important;
+            }
+
+            .sim-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        .print-authors-visible {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow-orb-1"></div>
+    <div class="glow-orb-2"></div>
+
+    <div class="container">
+        
+        <!-- ==========================================================================
+           PAGE DE GARDE / HERO
+           ========================================================================== -->
+        <header>
+            <div class="badge">RAPPORT DE PROJET ACADÉMIQUE</div>
+            <h1>Atelier de Programmation Système & Réseau</h1>
+            <div class="subtitle">Conception et implémentation d'une infrastructure de discussion instantanée TCP concurrente (Chat Hub)</div>
+            
+            <div class="authors-box">
+                <div class="authors-title">Réalisé par (saisir les noms) :</div>
+                <div class="inputs-container">
+                    <div class="input-author-wrapper">
+                        <input type="text" id="author1" class="input-author" placeholder="Nom Prénom 1" oninput="syncAuthors()">
+                    </div>
+                    <div class="input-author-wrapper">
+                        <input type="text" id="author2" class="input-author" placeholder="Nom Prénom 2" oninput="syncAuthors()">
+                    </div>
+                </div>
+                
+                <!-- Zone visible uniquement lors de l'impression PDF -->
+                <div class="print-authors-visible" id="print-authors">
+                    Réalisé par : [Non rempli]
+                </div>
+                
+                <div class="metadata-school">
+                    Filière : <span>Génie Informatique (GI) - S4</span> | Encadré à la <span>FSTS</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ==========================================================================
+           MENU D'ONGLETS DE NAVIGATION
+           ========================================================================== -->
+        <nav class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('archi')">Architecture & Schémas</button>
+            <button class="tab-btn" onclick="switchTab('protocole')">Protocole Réseau</button>
+            <button class="tab-btn" onclick="switchTab('difficultes')">Choix & Difficultés</button>
+            <button class="tab-btn" onclick="switchTab('execution')">Compilation & Tests</button>
+        </nav>
+
+        <!-- ==========================================================================
+           ONGLET 1 : ARCHITECTURE GENERALE
+           ========================================================================== -->
+        <section id="archi" class="tab-content active">
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title-icon">
+                        <div class="icon-circle">💻</div>
+                        <h3>L'Architecture Client-Serveur</h3>
+                    </div>
+                    <p>
+                        Le projet est architecturé autour d'une relation <strong>Client-Serveur centrale</strong>.
+                        Toutes les communications transitent et sont validées par le nœud central (le serveur) qui orchestre la topologie réseau.
+                    </p>
+                    <ul>
+                        <li><strong>Serveur Multithreadé</strong> : Utilise la norme POSIX <code>pthread</code>. Chaque nouvelle connexion acceptée par <code>accept()</code> est immédiatement déléguée à un thread de travail léger et autonome.</li>
+                        <li><strong>Clients Asynchrones</strong> : Les clients ne créent pas de threads mais s'appuient sur le multiplexage système d'entrées/sorties via <code>select()</code> pour surveiller simultanément le clavier et le socket réseau.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title-icon">
+                        <div class="icon-circle">🛡️</div>
+                        <h3>Synchronisation & Cohérence</h3>
+                    </div>
+                    <p>
+                        Le partage de l'état global du salon (la liste dynamique des descripteurs de fichiers, pseudos et heures de connexions de chaque utilisateur) expose l'application à des <strong>Race Conditions</strong>.
+                    </p>
+                    <ul>
+                        <li><strong>Mutex de Données</strong> : Le verrou d'exclusion mutuelle <code>clients_mutex</code> sécurise les phases d'inscription, de déconnexion ou de recherche d'un utilisateur.</li>
+                        <li><strong>Mutex de Log</strong> : Un second verrou <code>log_mutex</code> synchronise la console serveur et l'accès au fichier historique persistant pour prévenir l'entrelacement des lignes de log.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Schéma d'Architecture textuel/visuel haut de gamme -->
+            <div class="simulator-box" style="margin-top: 0;">
+                <h3 style="margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; color: #ffffff;">Schéma Conceptuel d'Interaction</h3>
+                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                    <pre style="margin: 0; padding: 0; background: transparent; border: none; font-size: 0.85rem; line-height: 1.5; color: var(--primary-light);">
+┌─────────────────────────────────┐           ┌─────────────────────────────────┐
+│     CLIENT A (Monothread)       │           │     CLIENT B (Monothread)       │
+│                                 │           │                                 │
+│  ┌───────────┐   ┌───────────┐  │           │  ┌───────────┐   ┌───────────┐  │
+│  │  Clavier  │   │  Socket   │  │           │  │  Clavier  │   │  Socket   │  │
+│  └─────┬─────┘   └─────▲─────┘  │           │  └─────┬─────┘   └─────▲─────┘  │
+└────────┼───────────────┼────────┘           └────────┼───────────────┼────────┘
+         │               │                             │               │
+         │ (select E/S)  │ (select E/S)                │ (select E/S)  │ (select E/S)
+         ▼               │                             ▼               │
+┌────────────────────────┴─────────────────────────────────────────────┴────────┐
+│                              SERVEUR CENTRAL (Multithreaded)                 │
+│                                                                              │
+│  ┌─────────────────────────┐                 ┌─────────────────────────┐     │
+│  │   Thread Client A       │                 │   Thread Client B       │     │
+│  │   (client_handler)      │                 │   (client_handler)      │     │
+│  └───────────┬─────────────┘                 └───────────┬─────────────┘     │
+│              │                                           │                   │
+│              ▼                                           ▼                   │
+│         ┌─────────────────────────────────────────────────────┐              │
+│         │     Ressources Partagées (clients[], logs)          │              │
+│         │     [ Sécurisées par clients_mutex & log_mutex ]     │              │
+│         └─────────────────────────────────────────────────────┘              │
+└──────────────────────────────────────────────────────────────────────────────┘
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+           ONGLET 2 : PROTOCOLE DE COMMUNICATION & SIMULATEUR
+           ========================================================================== -->
+        <section id="protocole" class="tab-content">
+            <div class="card" style="margin-bottom: 30px;">
+                <div class="card-title-icon">
+                    <div class="icon-circle">📬</div>
+                    <h3>Le Protocole Réseau : ChatMessage</h3>
+                </div>
+                <p>
+                    Le protocole applicatif est défini dans <code>common.h</code>. Il repose sur l'échange de messages de 
+                    <strong>taille fixe (1096 octets)</strong>. Cette uniformité est critique pour contrer la fragmentation inhérente à TCP.
+                </p>
+                <p>
+                    La structure est composée d'un type de message (Enumérateur), des champs identificateurs émetteur et récepteur, du corps du texte (1024 octets max) et d'un code de statut système.
+                </p>
+            </div>
+
+            <!-- SIMULATEUR INTERACTIF DU PROTOCOLE -->
+            <div class="simulator-box">
+                <h3 style="margin-bottom: 10px; color: #ffffff;">Simulateur Interactif de Protocole</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 25px;">Sélectionnez une commande ou un événement pour visualiser l'envoi de la structure <code>ChatMessage</code> correspondante entre le Client et le Serveur.</p>
+                
+                <div class="sim-grid">
+                    <div class="sim-menu">
+                        <button class="sim-menu-btn active" onclick="simulatePacket('connect')">
+                            <span>1. Connexion initiale</span>
+                            <span class="sim-badge-type">MSG_CONNECT</span>
+                        </button>
+                        <button class="sim-menu-btn" onclick="simulatePacket('public')">
+                            <span>2. Message public</span>
+                            <span class="sim-badge-type">MSG_PUBLIC</span>
+                        </button>
+                        <button class="sim-menu-btn" onclick="simulatePacket('private')">
+                            <span>3. Message privé (MP)</span>
+                            <span class="sim-badge-type">MSG_PRIVATE</span>
+                        </button>
+                        <button class="sim-menu-btn" onclick="simulatePacket('users')">
+                            <span>4. Liste utilisateurs</span>
+                            <span class="sim-badge-type">MSG_USERS</span>
+                        </button>
+                        <button class="sim-menu-btn" onclick="simulatePacket('disconnect')">
+                            <span>5. Déconnexion propre</span>
+                            <span class="sim-badge-type">MSG_DISCONNECT</span>
+                        </button>
+                    </div>
+
+                    <div class="sim-display">
+                        <!-- Visualisation de l'échange -->
+                        <div class="flow-visual">
+                            <div class="node active" id="sim-node-client">
+                                <div class="node-icon">👤</div>
+                                <div class="node-name">Client (Said)</div>
+                            </div>
+                            <div class="pipe-line">
+                                <div class="pipe-pulse active" id="sim-pulse"></div>
+                            </div>
+                            <div class="node" id="sim-node-server">
+                                <div class="node-icon">🖥️</div>
+                                <div class="node-name">Serveur (Chat Hub)</div>
+                            </div>
+                        </div>
+
+                        <!-- Paquet brute généré -->
+                        <div class="packet-viewer">
+                            <div class="packet-header">
+                                <span>STRUCTURE CHATMESSAGE (1096 OCTETS)</span>
+                                <span style="color: var(--accent);" id="packet-status-ok">STATUS: 0 (OK)</span>
+                            </div>
+                            <div class="packet-data" id="packet-code">
+{
+    "type": "MSG_CONNECT",
+    "sender": "Said",
+    "recipient": "",
+    "content": "",
+    "status": 0
+}
+                            </div>
+                        </div>
+
+                        <!-- Explication -->
+                        <div class="sim-explanation" id="sim-text">
+                            <strong>MSG_CONNECT</strong> : Envoyé à l'initialisation de l'application. Le client envoie son pseudo désiré dans le champ <code>sender</code>. Le serveur analyse la validité (unicité) avant de renvoyer un accord système.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+           ONGLET 3 : CHOIX TECHNIQUES & DIFFICULTES
+           ========================================================================== -->
+        <section id="difficultes" class="tab-content">
+            <h3 style="font-size: 1.8rem; margin-bottom: 10px; color: #ffffff;">Difficultés Rencontrées & Choix Stratégiques</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 30px;">La conception système et réseau en langage C sous Unix requiert la maîtrise d'interfaces systèmes bas niveau. Voici les principaux défis surmontés durant l'atelier.</p>
+            
+            <div class="timeline">
+                
+                <!-- Difficulté 1 -->
+                <div class="timeline-item difficulty-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="tag tag-danger">DÉFI CRITIQUE</span>
+                        <h4 class="timeline-title">L'Entrée Standard fgets() Bloquante</h4>
+                        <p>
+                            Sur un client classique mono-thread, l'appel à la fonction de lecture clavier <code>fgets()</code> suspend le processus tant que l'utilisateur n'appuie pas sur la touche Entrée. Si des messages réseau arrivent du serveur pendant cette pause, ils restent stockés dans les tampons de réception et ne s'affichent pas en temps réel à l'écran.
+                        </p>
+                        <div class="timeline-solution">
+                            <h5>Résolution Applicative</h5>
+                            <p>
+                                Implémentation du multiplexage d'E/S système via la fonction <strong><code>select()</code></strong>. Le socket réseau et l'entrée standard (descripteur <code>0</code>) sont inscrits dans un ensemble de descripteurs en lecture (<code>fd_set</code>). Le processus client est suspendu de manière non-bloquante et se réveille dès qu'un paquet réseau arrive OU dès qu'un caractère est saisi au clavier.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Difficulté 2 -->
+                <div class="timeline-item difficulty-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="tag tag-danger">DÉFI RÉSEAU</span>
+                        <h4 class="timeline-title">La Fragmentation & L'Agrégation des flux TCP</h4>
+                        <p>
+                            Le protocole TCP opère en "flux continu d'octets" (Stream). Il ne préserve pas les frontières des messages applicatifs. Si le réseau est congestionné, un appel à <code>send()</code> peut être tronqué (fragmentation), ou plusieurs structures consécutives peuvent être fusionnées et lues en un seul appel (agrégation).
+                        </p>
+                        <div class="timeline-solution">
+                            <h5>Résolution Applicative</h5>
+                            <p>
+                                1. Imposition d'une structure de donnée uniforme à taille fixe : <code>sizeof(ChatMessage)</code>.
+                                <br>
+                                2. Création de fonctions robustes <strong><code>send_all()</code></strong> et <strong><code>recv_all()</code></strong> qui bouclent et accumulent les octets en mémoire jusqu'à avoir émis ou lu exactement le compte requis de 1096 octets.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Difficulté 3 -->
+                <div class="timeline-item difficulty-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="tag tag-success">CHOIX DE CONCURRENCE</span>
+                        <h4 class="timeline-title">Concurrence Réseau Multithreadée</h4>
+                        <p>
+                            Pour garantir la fluidité du salon de chat, le serveur doit traiter chaque client simultanément. L'utilisation d'une architecture mono-thread itérative bloquerait tous les clients si l'un d'eux subissait une latence ou restait inactif.
+                        </p>
+                        <div class="timeline-solution">
+                            <h5>Résolution Applicative</h5>
+                            <p>
+                                Choix du modèle <strong>1 Thread par Client</strong> (<code>pthread</code>). Pour sécuriser le tableau d'état global contre les accès concurrents simultanés (écriture lors de déconnexion subite d'un client et lecture lors d'une commande <code>/users</code>), un verrou d'exclusion mutuelle strict (<strong>Mutex</strong>) est sollicité à chaque lecture/écriture.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+           ONGLET 4 : GUIDE COMPILATION & TESTS
+           ========================================================================== -->
+        <section id="execution" class="tab-content">
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title-icon">
+                        <div class="icon-circle">⚙️</div>
+                        <h3>Procédure de Build</h3>
+                    </div>
+                    <p>
+                        La compilation est automatisée pour éviter les erreurs de liens ou de drapeaux (notamment l'intégration de la bibliothèque <code>lpthread</code>).
+                    </p>
+                    <pre><code># Accéder au dossier
+cd atelier_prog_reseau
+
+# Compiler
+make
+
+# Nettoyer
+make clean</code></pre>
+                </div>
+
+                <div class="card">
+                    <div class="card-title-icon">
+                        <div class="icon-circle">🚀</div>
+                        <h3>Procédure d'Exécution</h3>
+                    </div>
+                    <p>
+                        Pour exécuter l'application, ouvrez au moins deux fenêtres de terminaux :
+                    </p>
+                    <pre><code># Terminal 1 - Serveur
+./chat_server 5555
+
+# Terminal 2 - Client
+./chat_client --server 127.0.0.1 --port 5555</code></pre>
+                </div>
+            </div>
+
+            <!-- CHECKLIST INTERACTIVE DES TESTS POUR DÉMONSTRATION -->
+            <div class="simulator-box" style="margin-top: 0;">
+                <h3 style="margin-bottom: 10px; color: #ffffff;">Jeu de Tests & Scénarios de Validation</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 25px;">Utilisez cette grille interactive pour valider vos cas de démonstration en temps réel devant votre examinateur.</p>
+                
+                <div class="test-checklist">
+                    
+                    <div class="test-item" onclick="toggleTest(this)">
+                        <div class="test-checkbox"></div>
+                        <div class="test-body">
+                            <h4>Cas 1 : Contrôle d'Unicité des Pseudos</h4>
+                            <p>Tentez de connecter deux clients avec le pseudo exact <code>Kamal</code>. Le serveur doit interdire la connexion du second et renvoyer une notification d'erreur propre.</p>
+                        </div>
+                    </div>
+
+                    <div class="test-item" onclick="toggleTest(this)">
+                        <div class="test-checkbox"></div>
+                        <div class="test-body">
+                            <h4>Cas 2 : Résilience aux Déconnexions Brutales</h4>
+                            <p>Tuez un terminal client via <code>Ctrl + C</code> ou en fermant l'onglet. Le serveur doit fermer le descripteur de socket sans planter et informer les participants actifs par un message système.</p>
+                        </div>
+                    </div>
+
+                    <div class="test-item" onclick="toggleTest(this)">
+                        <div class="test-checkbox"></div>
+                        <div class="test-body">
+                            <h4>Cas 3 : Routage des Messages Privés (MP)</h4>
+                            <p>Saisissez <code>/msg &lt;pseudo&gt; &lt;message&gt;</code>. Validez que le message privé n'est affiché que chez le destinataire sélectionné et qu'aucun autre client ne le reçoit.</p>
+                        </div>
+                    </div>
+
+                    <div class="test-item" onclick="toggleTest(this)">
+                        <div class="test-checkbox"></div>
+                        <div class="test-body">
+                            <h4>Cas 4 : Enregistrement de l'Historique (Logs)</h4>
+                            <p>Après plusieurs discussions, vérifiez que le fichier de stockage <code>chat_history.log</code> a bien été créé de manière persistance avec des horodatages à la seconde près.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+           PIED DE PAGE (FOOTER)
+           ========================================================================== -->
+        <footer>
+            Projet Universitaire POSIX - <strong>FSTS Génie Informatique S4</strong>. Tous droits réservés.
+        </footer>
+
+    </div>
+
+    <!-- ==========================================================================
+       LOGIQUE D'INTERACTIVITÉ JAVASCRIPT
+       ========================================================================== -->
+    <script>
+        // Gestion des auteurs en temps réel
+        function syncAuthors() {
+            const aut1 = document.getElementById('author1').value.trim();
+            const aut2 = document.getElementById('author2').value.trim();
+            const printSpan = document.getElementById('print-authors');
+            
+            let result = "Réalisé par : ";
+            if (aut1 && aut2) {
+                result += aut1 + " & " + aut2;
+            } else if (aut1) {
+                result += aut1;
+            } else if (aut2) {
+                result += aut2;
+            } else {
+                result += "[Non rempli]";
+            }
+            
+            printSpan.textContent = result;
+        }
+
+        // Navigation par onglets
+        function switchTab(tabId) {
+            // Cacher tous les contenus
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Retirer l'état actif des boutons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Afficher le bon contenu
+            document.getElementById(tabId).classList.add('active');
+            
+            // Activer le bon bouton
+            const event = window.event;
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            } else {
+                // Recherche par défaut si appelé par script
+                const targetBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabId));
+                if (targetBtn) targetBtn.classList.add('active');
+            }
+        }
+
+        // Simulation de paquets réseau
+        const simData = {
+            connect: {
+                type: "MSG_CONNECT",
+                sender: "Said",
+                recipient: "",
+                content: "",
+                status: 0,
+                desc: "<strong>MSG_CONNECT</strong> : Émis lors du lancement de l'application cliente. Le client pousse son pseudo dans le champ <code>sender</code>. Le serveur examine sa validité et son unicité avant de valider l'inscription.",
+                fromClient: true
+            },
+            public: {
+                type: "MSG_PUBLIC",
+                sender: "Said",
+                recipient: "",
+                content: "Bonjour tout le monde !",
+                status: 0,
+                desc: "<strong>MSG_PUBLIC</strong> : Message standard saisi dans la console. Diffusé en cascade par le serveur à l'intégralité des participants actifs connectés, à l'exception de l'expéditeur d'origine.",
+                fromClient: true
+            },
+            private: {
+                type: "MSG_PRIVATE",
+                sender: "Said",
+                recipient: "Kamal",
+                content: "Salut Kamal, c'est confidentiel !",
+                status: 0,
+                desc: "<strong>MSG_PRIVATE</strong> : Message privé initié par la commande <code>/msg Kamal &lt;texte&gt;</code>. Le serveur intercepte le message et l'injecte uniquement dans le socket du destinataire ciblé.",
+                fromClient: true
+            },
+            users: {
+                type: "MSG_USERS",
+                sender: "SYSTEM",
+                recipient: "Said",
+                content: "=== Participants Connectés (2) ===\n- Said (connecté depuis 10:15:32)\n- Kamal (connecté depuis 10:16:02)",
+                status: 0,
+                desc: "<strong>MSG_USERS</strong> : Déclenché par la commande <code>/users</code>. Le serveur interroge la table partagée sous exclusion mutuelle et retourne la liste formatée au demandeur.",
+                fromClient: false
+            },
+            disconnect: {
+                type: "MSG_DISCONNECT",
+                sender: "Said",
+                recipient: "",
+                content: "",
+                status: 0,
+                desc: "<strong>MSG_DISCONNECT</strong> : Émis proprement lors de la saisie de <code>/quit</code>. Le serveur ferme la socket, détruit le thread associé et informe les autres clients du départ de l'utilisateur.",
+                fromClient: true
+            }
+        };
+
+        function simulatePacket(action) {
+            const data = simData[action];
+            if (!data) return;
+
+            // Mettre à jour l'état visuel du bouton sélectionné
+            const buttons = document.querySelectorAll('.sim-menu-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            const activeBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(action));
+            if (activeBtn) activeBtn.classList.add('active');
+
+            // Mettre à jour le code JSON
+            const codeObj = {
+                type: data.type,
+                sender: data.sender,
+                recipient: data.recipient,
+                content: data.content,
+                status: data.status
+            };
+            document.getElementById('packet-code').textContent = JSON.stringify(codeObj, null, 4);
+            
+            // Mettre à jour la description
+            document.getElementById('sim-text').innerHTML = data.desc;
+
+            // Déclencher l'animation réseau
+            const pulse = document.getElementById('sim-pulse');
+            const clientNode = document.getElementById('sim-node-client');
+            const serverNode = document.getElementById('sim-node-server');
+            
+            pulse.classList.remove('active');
+            clientNode.classList.remove('active');
+            serverNode.classList.remove('active');
+
+            // Re-calculer l'animation
+            setTimeout(() => {
+                pulse.classList.add('active');
+                if (data.fromClient) {
+                    clientNode.classList.add('active');
+                    pulse.style.animationDirection = "normal";
+                    setTimeout(() => {
+                        serverNode.classList.add('active');
+                    }, 1800);
+                } else {
+                    serverNode.classList.add('active');
+                    pulse.style.animationDirection = "reverse";
+                    setTimeout(() => {
+                        clientNode.classList.add('active');
+                    }, 1800);
+                }
+            }, 50);
+        }
+
+        // Grille de tests
+        function toggleTest(element) {
+            element.classList.toggle('checked');
+        }
+    </script>
+</body>
+</html>
