@@ -1,0 +1,33 @@
+[2026-07-03 13:53:12] Serveur Chat Hub démarré avec succès sur le port 5555...
+[2026-07-03 13:54:00] Tentative de connexion depuis l'IP: 127.0.0.1, Port: 55390
+[2026-07-03 13:54:10] [Système] Client a rejoint le chat.
+[2026-07-03 13:54:29] Tentative de connexion depuis l'IP: 127.0.0.1, Port: 60768
+[2026-07-03 13:54:52] Tentative de connexion depuis l'IP: 127.0.0.1, Port: 36310
+[2026-07-03 13:54:58] Tentative de connexion depuis l'IP: 127.0.0.1, Port: 36324
+[2026-07-03 13:55:00] [Système] cl a rejoint le chat.
+[2026-07-03 13:55:08] [Système] cl a quitté le chat.
+[2026-07-03 13:55:15] [Système] Client a quitté le chat.
+[2026-07-03 13:55:20] Tentative de connexion depuis l'IP: 127.0.0.1, Port: 42614
+[2026-07-03 13:55:27] [Système] Client1 a rejoint le chat.
+[2026-07-03 13:55:31] Tentative de connexion depuis l'IP: 127.0.0.1, Port: 52428
+[2026-07-03 13:55:39] [Système] Client2 a rejoint le chat.
+[2026-07-03 13:55:44] Tentative de connexion depuis l'IP: 127.0.0.1, Port: 41930
+[2026-07-03 13:55:49] [Système] Client3 a rejoint le chat.
+[2026-07-03 13:56:13] Client3 (Public) : Bonjour tout le monde
+[2026-07-03 13:58:15] Client3 -> Client1 (Privé) : message prive de client 3 a client 1
+[2026-07-03 13:58:48] Client1 -> Client1 (Privé) : message prive de client 3 a client 1
+[2026-07-03 13:59:45] Serveur Chat Hub démarré avec succès sur le port 5555...
+[2026-07-03 13:59:50] Tentative de connexion depuis l'IP: 127.0.0.1, Port: 39612
+[2026-07-03 13:59:56] [Système] Client1 a rejoint le chat.
+[2026-07-03 14:00:00] Tentative de connexion depuis l'IP: 127.0.0.1, Port: 51674
+[2026-07-03 14:00:07] [Système] Client2 a rejoint le chat.
+[2026-07-03 14:00:20] Tentative de connexion depuis l'IP: 127.0.0.1, Port: 49902
+[2026-07-03 14:00:24] [Système] Client3 a rejoint le chat.
+[2026-07-03 14:00:56] Client3 (Public) : Bonjour tout le monde
+[2026-07-03 14:01:26] Client2 -> Client1 (Privé) : message prive de client2 a client1
+[2026-07-03 14:02:09] Client1 -> Client2 (Privé) : j'ai recu votre message
+[2026-07-03 14:03:01] Client3 (Public) : Au revoir tout le monde
+[2026-07-03 14:03:05] [Système] Client3 a quitté le chat.
+[2026-07-03 14:03:30] Client2 (Public) : Au revoir 
+[2026-07-03 14:03:35] [Système] Client2 a quitté le chat.
+[2026-07-03 14:03:50] [Système] Client1 a quitté le chat.
